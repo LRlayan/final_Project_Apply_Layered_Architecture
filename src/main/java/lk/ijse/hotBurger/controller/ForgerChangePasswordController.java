@@ -14,9 +14,8 @@ import lk.ijse.hotBurger.model.UserModel;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ForgerPasswordChangePasswordController {
+public class ForgerChangePasswordController {
 
     @FXML
     private TextField txtConfirmPassword;
