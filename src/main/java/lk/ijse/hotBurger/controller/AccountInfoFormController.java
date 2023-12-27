@@ -1,20 +1,17 @@
 package lk.ijse.hotBurger.controller;
 
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import lk.ijse.hotBurger.dto.CustomerDto;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.CustomerModel;
-import lk.ijse.hotBurger.model.UserModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AccountInfoFormController {
 
@@ -27,7 +24,6 @@ public class AccountInfoFormController {
 
     @FXML
     private TextField txtNewUsername;
-
 
     @FXML
     private TextField txtUsername;
@@ -50,9 +46,19 @@ public class AccountInfoFormController {
     @FXML
     private Label lblConfirmPassword;
 
-
     DuplicateMethodController checkPassword = new DuplicateMethodController();
-    UserModel userModel = new UserModel();
+//    UserModel userModel = new UserModel();
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+
+    ArrayList<UserDto> getAllUsers;
+
+    {
+        try {
+            getAllUsers = userBO.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void setEditableTextField(TextField textField , boolean onOff ){
         textField.setEditable(onOff);
@@ -68,7 +74,7 @@ public class AccountInfoFormController {
         var user = new UserDto(confirmUsername);
 
         try{
-            boolean isUpdated = userModel.updateUser(confirmUsername ,userId);
+            boolean isUpdated = userBO.updateUsername(confirmUsername ,userId);
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION,"updated").show();
                 clearTextField(txtUsername,txtNewUsername,txtConfirmUsername);
@@ -78,21 +84,20 @@ public class AccountInfoFormController {
         }
     }
 
-
     public void verifyUsernameOnAction(javafx.scene.input.KeyEvent keyEvent) throws SQLException {
         setEditableTextField(txtNewUsername , false);
         setEditableTextField(txtConfirmUsername , false);
         String username = txtUsername.getText();
 
-        ArrayList<UserDto> userDtoList = UserModel.getAllUsers();
+       // ArrayList<UserDto> userDtoList = UserModel.getAllUsers();
 
-        for (int i = 0; i < userDtoList.size(); i++){
-            if (username.equals(userDtoList.get(i).getUsername())){
+        for (int i = 0; i < getAllUsers.size(); i++){
+            if (username.equals(getAllUsers.get(i).getUsername())){
                 setEditableTextField(txtNewUsername , true);
                 setEditableTextField(txtConfirmUsername , true);
             }
         }
-        checkPassword.incorrectCredential(userDtoList , username , "Invalid Username!" , redLblUsername);
+        checkPassword.incorrectCredential(getAllUsers , username , "Invalid Username!" , redLblUsername);
     }
 
     public void confirmUsernameOnAction(javafx.scene.input.KeyEvent keyEvent) {
@@ -112,11 +117,11 @@ public class AccountInfoFormController {
         String confirmPassword = txtConfirmPassword.getText();
         String oldPassword = txtPassword.getText();
 
-        List<UserDto> userDtoList = UserModel.getAllUsers();
+        //List<UserDto> userDtoList = UserModel.getAllUsers();
 
         var user = new UserDto(confirmPassword);
         try {
-            boolean isUpdatePassword = userModel.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = userBO.updateUserPassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtPassword,txtNewPassword,txtConfirmPassword);
@@ -142,7 +147,7 @@ public class AccountInfoFormController {
         setEditableTextField(txtConfirmPassword , false);
         String password = txtPassword.getText();
 
-        ArrayList<UserDto> userDtoList = UserModel.getAllUsers();
+        ArrayList<UserDto> userDtoList = userBO.getAll();
 
         for (int i = 0; i < userDtoList.size(); i++){
             if (password.equals(userDtoList.get(i).getPassword())){
