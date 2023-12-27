@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
 import lk.ijse.hotBurger.dto.CustomerDto;
 import lk.ijse.hotBurger.dto.DeliveryDto;
 import lk.ijse.hotBurger.dto.tm.CustomerTm;
@@ -65,13 +67,13 @@ public class DeliveryFormController {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    CustomerModel customerModel = new CustomerModel();
-
+   // CustomerModel customerModel = new CustomerModel();
+    CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
     static CustomerDto customerDto = new CustomerDto();
 
     static DeliveryDto deliveryDto = new DeliveryDto();
 
-    private List<CustomerDto> customerDtoList = customerModel.getAllCustomers();
+    private List<CustomerDto> customerDtoList = customerDetailBO.getAll();
 
     private Set<String> _customerDtoLis = new HashSet<>();
 
