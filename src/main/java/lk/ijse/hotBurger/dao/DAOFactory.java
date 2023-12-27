@@ -7,7 +7,7 @@ public class DAOFactory {
 
     private DAOFactory() {}
 
-    public DAOFactory getDaoFactory(){
+    public static DAOFactory getDaoFactory(){
         return (daoFactory == null) ? daoFactory = new DAOFactory() : daoFactory;
     }
 
