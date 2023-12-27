@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageItemBO;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.tm.ItemTm;
 import lk.ijse.hotBurger.model.ItemModel;
@@ -44,7 +46,8 @@ public class UpdateItemPopWindowController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    ItemModel itemModel = new ItemModel();
+   // ItemModel itemModel = new ItemModel();
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
    // private List<ItemDto> dtoList;
 
     @FXML
@@ -63,7 +66,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
             var itemDto = new ItemDto(categoryId,itemCode,itemName,unitPrice,unitCost, itemId);
             try{
-                 boolean isUpdate = itemModel.updateItem(itemDto);
+                 boolean isUpdate = manageItemBO.updateItem(itemDto);
                  if (isUpdate){
                      new Alert(Alert.AlertType.INFORMATION,"Update Successfully").show();
                  }
@@ -79,9 +82,9 @@ public class UpdateItemPopWindowController implements Initializable {
         setData();
     }
 
-    public void loadDataTextField(){
+    public void loadDataTextField() throws SQLException {
         //initialize weddima item table eke select karana row eke data tika updateItemPopWindow ekata set wela thiyenna one
-        List<ItemDto> dtoList = itemModel.loadAllItem();
+        List<ItemDto> dtoList = manageItemBO.getAllItem();
 
           for (int i = 0; i < dtoList.size(); i++) {
             txtItemCode.setText(dtoList.get(i).getItemCode());

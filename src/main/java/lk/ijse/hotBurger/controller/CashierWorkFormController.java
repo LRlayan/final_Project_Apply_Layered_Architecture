@@ -1,36 +1,23 @@
 package lk.ijse.hotBurger.controller;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.db.DbConnection;
-import lk.ijse.hotBurger.dto.ItemDto;
-import lk.ijse.hotBurger.dto.tm.ItemTm;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CashierWorkFormController implements Initializable {
@@ -59,38 +46,38 @@ public class CashierWorkFormController implements Initializable {
     DuplicateMethodController duplicateMethodController = new DuplicateMethodController();
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    public void onBurgerClick(ActionEvent actionEvent) throws IOException {
+    public void onBurgerClick(ActionEvent actionEvent) throws IOException, SQLException {
         loadGrid(1);
         burgerGrid.ingrediantAnchorpane.setVisible(true);
         burgerGrid.toppingsAnchorpane.setVisible(true);
     }
 
     @FXML
-    void onComboBoxClick(ActionEvent event) throws IOException {
+    void onComboBoxClick(ActionEvent event) throws IOException, SQLException {
         loadGrid(2);
     }
 
     @FXML
-    void onSnacksClick(ActionEvent event) {
+    void onSnacksClick(ActionEvent event) throws SQLException {
         loadGrid(3);
     }
 
     @FXML
-    void onSaucesClick(ActionEvent event) {
+    void onSaucesClick(ActionEvent event) throws SQLException {
         loadGrid(4);
     }
 
     @FXML
-    void onDrinksClick(ActionEvent event) {
+    void onDrinksClick(ActionEvent event) throws SQLException {
         loadGrid(5);
     }
 
     @FXML
-    void onOfferseClick(ActionEvent event) {
+    void onOfferseClick(ActionEvent event) throws SQLException {
         loadGrid(6);
     }
 
-    private void loadGrid(int categoryId) {
+    private void loadGrid(int categoryId) throws SQLException {
         if (burgerGrid != null) {
             burgerGrid.clickLoadGridPane(categoryId, "/view/gridPaneItem.fxml");
             burgerGrid.ingrediantAnchorpane.setVisible(false);
@@ -102,7 +89,7 @@ public class CashierWorkFormController implements Initializable {
 
 
     public void cashierLogoutOnAction(MouseEvent mouseEvent) throws IOException {
-        duplicate.navigate("/view/adminLogin_form.fxml", cashierMainAnchorpane);
+        duplicate.navigate("/view/userLogin_form.fxml", cashierMainAnchorpane);
     }
 
 

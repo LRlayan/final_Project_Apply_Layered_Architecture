@@ -3,6 +3,7 @@
 CREATE DATABASE hotBurger;
 
 USE hotBurger;
+select * from user;
 
 CREATE TABLE user(
             id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -13,8 +14,8 @@ CREATE TABLE user(
             phone VARCHAR(20) NOT NULL
 );
 
-INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'pereraHotBurger' , 'burger1234' , 'admin' , 'hotburger@gmail.com' , '0765937705');
-INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'orderAccount' , 'cashier1234' , 'cashier' , 'no mail' , '0757980223');
+INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'admin' , '123' , 'admin' , 'hotburger@gmail.com' , '0765937705');
+INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'cashier' , '456' , 'cashier' , 'no mail' , '0757980223');
 
 UPDATE user SET username = 'admin' where id = 1;
 UPDATE user SET password = '123' where id = 1;

@@ -192,7 +192,7 @@ public class CartTableController implements Initializable {
     }
 
     public void dineInAndPickUpCustomer() throws SQLException, JRException {
-        customerModel.dineCustomerSave(DineInCustomerFormController.customerDto);
+        customerModel.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
         if (DineInCustomerFormController.customerDto.getId() != 0) {
             order.setCustomerId(DineInCustomerFormController.customerDto.getId());
             orderModel.saveOrder(order);

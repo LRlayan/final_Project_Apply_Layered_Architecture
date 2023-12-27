@@ -8,8 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.UserModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,9 +32,17 @@ public class ForgerChangePasswordController {
 
     public static int userId;
 
-    UserModel userModel = new UserModel();
-
     DuplicateMethodController navigate = new DuplicateMethodController();
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+    ArrayList<UserDto> allUsers;
+
+    {
+        try {
+            allUsers = userBO.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     void changePasswordOnAction(ActionEvent event) throws SQLException {
@@ -41,14 +50,12 @@ public class ForgerChangePasswordController {
 
         var user = new UserDto(confirmPassword);
 
-        ArrayList<UserDto> allUsers = UserModel.getAllUsers();
-
         for (int i =0; i < allUsers.size(); i++){
             userId = allUsers.get(i).getId();
         }
         try {
 
-            boolean isUpdatePassword = userModel.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = userBO.updateUserPassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtNewPassword,txtConfirmPassword);
@@ -80,7 +87,7 @@ public class ForgerChangePasswordController {
     }
 
     public void signInOnAction(MouseEvent mouseEvent) throws IOException {
-        navigate.popUpWindow("/view/adminLogin_form.fxml");
+        navigate.popUpWindow("/view/userLogin_form.fxml");
     }
 }
 

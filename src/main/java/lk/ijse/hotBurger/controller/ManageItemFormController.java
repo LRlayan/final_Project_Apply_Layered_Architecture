@@ -13,34 +13,27 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.bo.custom.impl.ManageItemBOImpl;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.tm.ItemTm;
 import lk.ijse.hotBurger.model.ItemModel;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
-import static java.awt.Color.RED;
-import static java.awt.SystemColor.text;
 
 public class ManageItemFormController implements Initializable {
     @FXML
@@ -71,7 +64,7 @@ public class ManageItemFormController implements Initializable {
     private TableColumn<?, ?> colUpdate;
 
     ItemModel itemModel = new ItemModel();
-
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
     ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
@@ -80,7 +73,11 @@ public class ManageItemFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         setCellValueFactory();
-        loadAllItem();
+        try {
+            loadAllItem();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         searchBarItem();
     }
     private void setCellValueFactory(){
@@ -93,10 +90,10 @@ public class ManageItemFormController implements Initializable {
         colUpdate.setCellValueFactory(new PropertyValueFactory<>("delete"));
     }
 
-    public void loadAllItem(){
+    public void loadAllItem() throws SQLException {
 
         try {
-            List<ItemDto> dtoList = itemModel.loadAllItem();
+            ArrayList<ItemDto> dtoList = itemModel.getAllItem();
             for (ItemDto dto : dtoList) {
                 observableList.add(new ItemTm(
                         dto.getId(),
@@ -145,6 +142,8 @@ public class ManageItemFormController implements Initializable {
                     loadAllItem();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
             });
 
@@ -157,7 +156,11 @@ public class ManageItemFormController implements Initializable {
                     deleteItemData(itemCode);
                 }
                 itemtable.refresh();
-                loadAllItem();
+                try {
+                    loadAllItem();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             });
         }
     }
@@ -165,7 +168,7 @@ public class ManageItemFormController implements Initializable {
     private void deleteItemData(String itemCode){
 
         try{
-            boolean isDelete = itemModel.deleteItem(itemCode);
+            boolean isDelete = manageItemBO.deleteItem(itemCode);
             if (isDelete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Delete Successfully!").show();
             }
@@ -173,7 +176,7 @@ public class ManageItemFormController implements Initializable {
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
     }
-    public void clickNewItemBtnOnActon(ActionEvent actionEvent) throws IOException {
+    public void clickNewItemBtnOnActon(ActionEvent actionEvent) throws IOException, SQLException {
         Parent rootNode = FXMLLoader.load(getClass().getResource("/view/addNewItem.fxml"));
         Scene scene = new Scene(rootNode);
         Stage stage = new Stage();

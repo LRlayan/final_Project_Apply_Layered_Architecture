@@ -1,24 +1,17 @@
 package lk.ijse.hotBurger.controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.UserModel;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +30,7 @@ public class InitializeForgetPasswordController {
     DuplicateMethodController navigate = new DuplicateMethodController();
 
     public void signInOnAction(MouseEvent mouseEvent) throws IOException {
-        navigate.popUpWindow("/view/adminLogin_form.fxml");
+        navigate.popUpWindow("/view/userLogin_form.fxml");
 
     }
 

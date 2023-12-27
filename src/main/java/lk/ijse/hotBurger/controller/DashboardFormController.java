@@ -3,12 +3,8 @@ package lk.ijse.hotBurger.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,6 +69,6 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnLogoutOnAction(ActionEvent actionEvent) throws IOException {
-        duplicate.navigate("/view/adminLogin_form.fxml" , adminanchorpane);
+        duplicate.navigate("/view/userLogin_form.fxml" , adminanchorpane);
     }
 }

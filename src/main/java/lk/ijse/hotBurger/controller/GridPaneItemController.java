@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.AppInitializer;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageItemBO;
 import lk.ijse.hotBurger.dto.GridPaneItemDto;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.OrderDetailsDto;
@@ -43,13 +45,19 @@ public class GridPaneItemController implements Initializable {
 
     List<ItemDto> itemDto = new ArrayList<>();
 
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setImgAndNameAndPrice();
+        try {
+            setImgAndNameAndPrice();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void setImgAndNameAndPrice() {
-        itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
+    public void setImgAndNameAndPrice() throws SQLException {
+        itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
 
         Image image = new Image(itemDto.get(x).getImage());
         ImageView imageView = new ImageView(image);

@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageItemBO;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.tm.ItemTm;
 import lk.ijse.hotBurger.model.ItemModel;
@@ -22,6 +24,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.awt.*;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
@@ -64,7 +67,8 @@ public class GmailItemController implements Initializable {
         @FXML
         private TextField sendEmail;
 
-        static ItemModel itemModel = new ItemModel();
+        //static ItemModel itemModel = new ItemModel();
+        static ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
         DuplicateMethodController duplicate = new DuplicateMethodController();
 
@@ -87,7 +91,7 @@ public class GmailItemController implements Initializable {
         public void loadAllItem(){
 
             try {
-                List<ItemDto> dtoList = itemModel.loadAllItem();
+                List<ItemDto> dtoList = manageItemBO.getAllItem();
                 for (ItemDto dto : dtoList) {
                     observableList.add(new ItemTm(
                             dto.getId(),
@@ -101,6 +105,8 @@ public class GmailItemController implements Initializable {
                 itemtable.setItems(observableList);
 
             } catch (HeadlessException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -174,8 +180,8 @@ public class GmailItemController implements Initializable {
         sendEmail(email);
     }
 
-    private static Message prepareMessage(Session session, String myAccountEmail, String recepient) {
-        List<ItemDto> itemList = itemModel.loadAllItem();
+    private static Message prepareMessage(Session session, String myAccountEmail, String recepient) throws SQLException {
+        List<ItemDto> itemList = manageItemBO.getAllItem();
 
         try {
             Message message = new MimeMessage(session);

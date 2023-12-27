@@ -1,9 +1,9 @@
 package lk.ijse.hotBurger.model;
 
 import javafx.scene.control.Alert;
+import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.db.DbConnection;
 import lk.ijse.hotBurger.dto.CustomerDto;
-import lk.ijse.hotBurger.dto.ItemDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerModel {
+
+    public static ResultSet generatedKeys;
 
     public CustomerDto saveCustomer(CustomerDto customerDto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
@@ -27,21 +29,24 @@ public class CustomerModel {
         preparedStatement.setString(5,customerDto.getMobile());
 
         int affectedRow = preparedStatement.executeUpdate();
+
+       //  boolean affectedRow = SQLUtil.executeQuery("INSERT INTO customer VALUES(?,?,?,?,?)",customerDto);
         if (affectedRow > 0){
             new Alert(Alert.AlertType.INFORMATION,"Customer created successfully!");
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            // generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()){
                 int generatedId = generatedKeys.getInt(1);
                 customerDto.setId(generatedId);
                 return customerDto;
             }
+
         }else {
             new Alert(Alert.AlertType.ERROR,"Customer Error");
         }
         return null;
     }
 
-    public CustomerDto dineCustomerSave(CustomerDto customerDto) throws SQLException {
+    public CustomerDto dineAndPickUpCustomerSave(CustomerDto customerDto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";

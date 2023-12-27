@@ -39,7 +39,7 @@ public class ForgetPasswordController implements Initializable {
 //    DuplicateMethodController navigate = new DuplicateMethodController();
 //
 //    public void signInOnAction(MouseEvent mouseEvent) throws IOException {
-//        navigate.changeOnlyAnchorPane("/view/adminLogin_form.fxml", forgerPasswordAnchorpane);
+//        navigate.changeOnlyAnchorPane("/view/userLogin_form.fxml", forgerPasswordAnchorpane);
 //    }
 //
 //    @FXML

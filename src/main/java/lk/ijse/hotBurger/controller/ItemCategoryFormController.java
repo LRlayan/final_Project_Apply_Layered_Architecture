@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ItemCategoryBO;
 import lk.ijse.hotBurger.dto.ItemCategoryDto;
 import lk.ijse.hotBurger.dto.tm.ItemCategoryTm;
 import lk.ijse.hotBurger.model.ItemCategoryModel;
@@ -33,7 +35,8 @@ public class ItemCategoryFormController {
     @FXML
     private TextField categorySearchBar;
 
-    ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
+   // ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
+    ItemCategoryBO itemCategoryBO = (ItemCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ITEM_CATEGORY);
 
     public void initialize(){
         setCellValueFactory();
@@ -52,7 +55,7 @@ public class ItemCategoryFormController {
     public void loadAllItemCategory(){
 
         try{
-            List<ItemCategoryDto> itemCategoryDtoList = itemCategoryModel.loadAllItemCategory();
+            List<ItemCategoryDto> itemCategoryDtoList = itemCategoryBO.getAllItemCategory();
 
             for ( ItemCategoryDto dto : itemCategoryDtoList) {
                 obList.add(new ItemCategoryTm(

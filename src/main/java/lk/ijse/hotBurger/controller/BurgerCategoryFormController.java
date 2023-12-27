@@ -7,11 +7,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageItemBO;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.model.ItemModel;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,12 +36,14 @@ public class BurgerCategoryFormController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    public void initializeLoadGridPane(int categoryId){
-        List<ItemDto> itemDtos = ItemModel.loadAllItemCategoryVise(categoryId);
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+
+    public void initializeLoadGridPane(int categoryId) throws SQLException {
+        List<ItemDto> itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
 
         int column = 0;
         int row = 0;
-        for (int i = 0; i < itemDtos.size(); i++) {
+        for (int i = 0; i < itemDto.size(); i++) {
             GridPaneItemController.x = i;
             GridPaneItemController.categoryId = categoryId;
             GridPaneItemController.ancpane = pane;
@@ -52,7 +57,7 @@ public class BurgerCategoryFormController implements Initializable {
             }
         }
     }
-    protected void clickLoadGridPane(int categoryId , String fxml){
+    protected void clickLoadGridPane(int categoryId , String fxml) throws SQLException {
 
         if (gridpane == null) {
             System.out.println("burgerGridpane is null");
@@ -61,7 +66,7 @@ public class BurgerCategoryFormController implements Initializable {
 
         gridpane.getChildren().clear();
 
-        List<ItemDto> itemDtos = ItemModel.loadAllItemCategoryVise(categoryId);
+        List<ItemDto> itemDtos = manageItemBO.loadAllItemCategoryVise(categoryId);
 
         if (itemDtos == null) {
             System.out.println("itemDtos is null");
@@ -101,6 +106,10 @@ public class BurgerCategoryFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        initializeLoadGridPane(1);
+        try {
+            initializeLoadGridPane(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
