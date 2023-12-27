@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.AccountInfoBO;
 import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dto.UserDto;
 
@@ -34,6 +35,8 @@ public class ForgerChangePasswordController {
 
     DuplicateMethodController navigate = new DuplicateMethodController();
     UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+
+    AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
     ArrayList<UserDto> allUsers;
 
     {
@@ -55,7 +58,7 @@ public class ForgerChangePasswordController {
         }
         try {
 
-            boolean isUpdatePassword = userBO.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = accountInfoBO.updateUserPassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtNewPassword,txtConfirmPassword);
