@@ -1,5 +1,6 @@
 package lk.ijse.hotBurger.model;
 
+import lk.ijse.hotBurger.Entity.ItemCategory;
 import lk.ijse.hotBurger.db.DbConnection;
 import lk.ijse.hotBurger.dto.ItemCategoryDto;
 import lk.ijse.hotBurger.dto.ItemDto;
@@ -13,17 +14,17 @@ import java.util.List;
 
 public class ItemCategoryModel {
 
-    public static List<ItemCategoryDto> loadAllItemCategory() throws SQLException {
+    public static ArrayList<ItemCategory> getAllItemCategory() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM itemCategory";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        List<ItemCategoryDto> itemCategoryList = new  ArrayList<>();
+        ArrayList<ItemCategory> itemCategoryList = new  ArrayList<>();
 
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            itemCategoryList.add(new ItemCategoryDto(
+            itemCategoryList.add(new ItemCategory(
                     resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(3)
