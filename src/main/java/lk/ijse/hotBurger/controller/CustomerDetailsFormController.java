@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
 import lk.ijse.hotBurger.dto.CustomerDto;
 import lk.ijse.hotBurger.dto.tm.CustomerTm;
 import lk.ijse.hotBurger.model.CustomerModel;
@@ -36,8 +38,9 @@ public class CustomerDetailsFormController implements Initializable {
     @FXML
     private TableColumn<?, ?> mobile;
 
-    CustomerModel customerModel = new CustomerModel();
+  //  CustomerModel customerModel = new CustomerModel();
 
+    CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
     ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
     @Override
@@ -49,7 +52,7 @@ public class CustomerDetailsFormController implements Initializable {
     public void loadAllCustomers(){
 
         try{
-            List<CustomerDto> customerDto = customerModel.getAllCustomers();
+            List<CustomerDto> customerDto = customerDetailBO.getAll();
             for (CustomerDto dto : customerDto) {
                 obList.add(new CustomerTm(
                         dto.getId(),
