@@ -7,12 +7,12 @@ public class BOFactory {
 
     private BOFactory(){}
 
-    public BOFactory getBoFactory(){
+    public static BOFactory getBoFactory(){
         return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
     }
 
     public enum BOTypes{
-        ACCOUNT_INFO,ADD_NEW_ITEM,ADMIN_LOGIN,BURGER_CATEGORY,CART_TABLE,CASHIER_WORK,CREATE_ITEM,CUSTOMER_DETAIL,DASHBOARD,DASHBOARD_PANE,DELIVERY,DINE_IN,FORGET_CHANGE_PASSWORD,FORGET_PASSWORD,GMAIL_ITEM,GRID_PANE_ITEM,INITIALIZE_FORGET_PASSWORD,ITEM_CATEGORY,MANAGE_ITEM,MANAGE_ITEM_CATEGORY,MANAGE_ORDER,REMOVE_INGREDIENTS,SAUCES,SEND_CODE_FOR_EMAIL,UPDATE_ITEM
+        ACCOUNT_INFO,ADD_NEW_ITEM,ADMIN_LOGIN,BURGER_CATEGORY,CART_TABLE,CASHIER_WORK,CREATE_ITEM,CUSTOMER_DETAIL,DASHBOARD,DASHBOARD_PANE,DELIVERY,DINE_IN,FORGET_CHANGE_PASSWORD,FORGET_PASSWORD,GMAIL_ITEM,GRID_PANE_ITEM,INITIALIZE_FORGET_PASSWORD,ITEM_CATEGORY,MANAGE_ITEM,MANAGE_ITEM_CATEGORY,MANAGE_ORDER,REMOVE_INGREDIENTS,SAUCES,SEND_CODE_FOR_EMAIL,UPDATE_ITEM,USER
     }
 
     public SuperBO BOTypes(BOTypes boTypes){
@@ -22,7 +22,7 @@ public class BOFactory {
             case ADD_NEW_ITEM:
                 return new AddNewItemBOImpl();
             case ADMIN_LOGIN:
-                return new AdminLoginBOImpl();
+                return new UserBoImpl();
             case BURGER_CATEGORY:
                 return new BurgerCategoryBOImpl();
             case CART_TABLE:
@@ -65,6 +65,8 @@ public class BOFactory {
                 return new SendCodeForEmailBOImpl();
             case UPDATE_ITEM:
                 return new UpdateItemPopUpWindowBOImpl();
+            case USER:
+                return new UserBoImpl();
             default:
                 return null;
         }
