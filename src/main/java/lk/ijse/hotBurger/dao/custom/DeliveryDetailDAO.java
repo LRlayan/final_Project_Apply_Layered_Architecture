@@ -1,4 +1,7 @@
 package lk.ijse.hotBurger.dao.custom;
 
-public interface DeliveryDetailDAO {
+import lk.ijse.hotBurger.Entity.DeliveryDetail;
+import lk.ijse.hotBurger.dao.CrudDAO;
+
+public interface DeliveryDetailDAO extends CrudDAO<DeliveryDetail> {
 }
