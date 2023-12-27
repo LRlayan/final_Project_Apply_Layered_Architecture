@@ -1,9 +1,14 @@
 package lk.ijse.hotBurger.dao.custom;
 
-import lk.ijse.hotBurger.dto.AddNewItemDto;
+import lk.ijse.hotBurger.Entity.Item;
+import lk.ijse.hotBurger.dao.CrudDAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface ItemDAO {
-    boolean addNewItem(AddNewItemDto newItemDto) throws SQLException;
+public interface ItemDAO extends CrudDAO<Item> {
+  //  boolean addNewItem(Item newItemDto) throws SQLException;
+  ArrayList<Item> loadAllItemCategoryVise(int catID) throws SQLException;
+
 }
