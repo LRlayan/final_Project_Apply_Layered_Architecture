@@ -5,9 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.AddNewItemBO;
 import lk.ijse.hotBurger.dto.AddNewItemDto;
-import lk.ijse.hotBurger.model.AddNewItemModel;
-import lk.ijse.hotBurger.model.CustomerModel;
 
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -36,6 +36,8 @@ public class AddNewItemController {
     private JFXButton closeButton;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
+
+    AddNewItemBO addNewItemBO = (AddNewItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ADD_NEW_ITEM);
     public void createBtnOnAction(ActionEvent actionEvent) {
         String code = txtItemCode.getText();
         String name = txtItemName.getText();
@@ -49,7 +51,7 @@ public class AddNewItemController {
 
             var newItemDto = new AddNewItemDto(code,name,unitPrice,unitCost,categoryId);
             try{
-                boolean isAdd = AddNewItemModel.addNewItem(newItemDto);
+                boolean isAdd = addNewItemBO.addNewItem(newItemDto);
                 if (isAdd){
                     duplicate.clickButtonCloseWindow(btnCreate);
                     new Alert(Alert.AlertType.CONFIRMATION,"Added Successfully!").show();
