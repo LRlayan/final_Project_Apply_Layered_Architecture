@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.AccountInfoBO;
 import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dto.UserDto;
 
@@ -49,6 +50,7 @@ public class AccountInfoFormController {
     DuplicateMethodController checkPassword = new DuplicateMethodController();
 //    UserModel userModel = new UserModel();
     UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+    AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
 
     ArrayList<UserDto> getAllUsers;
 
@@ -74,7 +76,7 @@ public class AccountInfoFormController {
         var user = new UserDto(confirmUsername);
 
         try{
-            boolean isUpdated = userBO.updateUsername(confirmUsername ,userId);
+            boolean isUpdated = accountInfoBO.updateUsername(confirmUsername ,userId);
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION,"updated").show();
                 clearTextField(txtUsername,txtNewUsername,txtConfirmUsername);
@@ -121,7 +123,7 @@ public class AccountInfoFormController {
 
         var user = new UserDto(confirmPassword);
         try {
-            boolean isUpdatePassword = userBO.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = accountInfoBO.updateUserPassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtPassword,txtNewPassword,txtConfirmPassword);
