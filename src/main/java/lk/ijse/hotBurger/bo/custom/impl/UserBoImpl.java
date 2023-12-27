@@ -24,13 +24,23 @@ public class UserBoImpl implements UserBO {
     }
 
     @Override
-    public boolean updateUsername(String confirmUsername, int userId) throws SQLException {
-        return userDAO.updateUsername(confirmUsername,userId);
+    public boolean update(User dto) throws SQLException {
+        return false;
     }
 
     @Override
-    public boolean updateUserPassword(String confirmPassword, int userId) throws SQLException {
-        return userDAO.updateUserPassword(confirmPassword,userId);
+    public boolean delete(String id) throws SQLException {
+        return false;
     }
+
+//    @Override
+//    public boolean updateUsername(String confirmUsername, int userId) throws SQLException {
+//        return userDAO.updateUsername(confirmUsername,userId);
+//    }
+//
+//    @Override
+//    public boolean updateUserPassword(String confirmPassword, int userId) throws SQLException {
+//        return userDAO.updateUserPassword(confirmPassword,userId);
+//    }
 
 }
