@@ -16,7 +16,6 @@ public class OrderModel {
         preparedStatement.setInt(1, 0);
         preparedStatement.setString(2, order.getType());
         preparedStatement.setString(3, order.getDate());
-        //preparedStatement.setString(4,order.getDescription());
         preparedStatement.setDouble(4, order.getSubTotal());
         preparedStatement.setDouble(5, order.getDiscount());
         preparedStatement.setDouble(6, order.getDeliveryCharge());
