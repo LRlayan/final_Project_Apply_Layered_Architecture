@@ -24,26 +24,13 @@ public class CashierWorkFormController implements Initializable {
 
     @FXML
     AnchorPane orderAnchorPane;
-
     @FXML
     private AnchorPane cashierMainAnchorpane;
-    private static CashierWorkFormController instance;
-
-    @FXML
-    private JFXButton btnDelivery;
-
-    @FXML
-    private JFXButton btnDineIn;
-
-    @FXML
-    private JFXButton btnPickUp;
-
     @FXML
     private AnchorPane mainAnchorpane;
-
+    private static CashierWorkFormController instance;
     private BurgerCategoryFormController burgerGrid;
 
-    DuplicateMethodController duplicateMethodController = new DuplicateMethodController();
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
     public void onBurgerClick(ActionEvent actionEvent) throws IOException, SQLException {
