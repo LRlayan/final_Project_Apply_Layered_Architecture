@@ -4,20 +4,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.OrderDto;
-import lk.ijse.hotBurger.dto.tm.ItemTm;
 import lk.ijse.hotBurger.dto.tm.OrderTm;
 import lk.ijse.hotBurger.model.OrderModel;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ManageOrderFormController implements Initializable {
@@ -49,7 +46,6 @@ public class ManageOrderFormController implements Initializable {
     @FXML
     private TableView<OrderTm> orderTable;
 
-
     @FXML
     private Label lblProfit;
 
@@ -68,7 +64,7 @@ public class ManageOrderFormController implements Initializable {
 
     public void loadAllOrders(){
         try{
-          List<OrderDto> orderDto = orderModel.loadAllOrders();
+          ArrayList<OrderDto> orderDto = orderModel.loadAllOrders();
             for (OrderDto dto : orderDto) {
                  obList.add(new OrderTm(
                     dto.getId(),
