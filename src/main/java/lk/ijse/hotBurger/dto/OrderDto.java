@@ -23,13 +23,13 @@ public class OrderDto {
     DeliveryDto deliveryDetails;
     List<OrderDetailsDto> orderItem;
 
-    public OrderDto(int id, String type, String date, double subTotal, double discount, double deliveryCharge, double total, int customerId) {
+    public OrderDto(int id, double subTotal, double deliveryCharge, double discount, String date, double total, int customerId , String type) {
         this.id = id;
         this.subTotal = subTotal;
         this.deliveryCharge = deliveryCharge;
         this.discount = discount;
-        this.total = total;
         this.date = date;
+        this.total = total;
         this.customerId = customerId;
         this.type = type;
     }
