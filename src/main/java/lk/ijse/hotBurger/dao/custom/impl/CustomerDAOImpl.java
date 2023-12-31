@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.hotBurger.Entity.Customer;
 import lk.ijse.hotBurger.Entity.Order;
 import lk.ijse.hotBurger.controller.DeliveryFormController;
+import lk.ijse.hotBurger.controller.DineInCustomerFormController;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.CustomerDAO;
 import lk.ijse.hotBurger.db.DbConnection;
@@ -120,12 +121,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 
             if (generatedKeys.next()){
                 int generatedId = generatedKeys.getInt(1);
-                entity.setId(generatedId);
-                return entity;
+                if (generatedId != 0) {
+                    System.out.println("athulata awa");
+                    entity.setId(generatedId);
+                    DineInCustomerFormController.customerDto.setId(generatedId);
+                    return entity;
+                }
             }
         }else {
             new Alert(Alert.AlertType.ERROR,"Customer Error");
         }
+         //return null;
         return null;
     }
 }

@@ -198,7 +198,8 @@ public class CartTableController implements Initializable {
                             orderDetails.forEach(orderDetailsDto -> {
                                 try {
                                     orderDetailsDto.setOrderId(order.getId());
-                                    orderDetailDAO.save(orderDetailsDto);
+                                   // orderDetailDAO.save(orderDetailsDto);
+                                    cartTableBO.saveOrderDetail(orderDetailsDto);
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -232,8 +233,8 @@ public class CartTableController implements Initializable {
                 orderDetails.forEach(orderDetailsDto -> {
                     try {
                         orderDetailsDto.setOrderId(order.getId());
-                        orderDetailDAO.save(orderDetailsDto);
-                       // cartTableBO.saveOrderDetail(orderDetailsDto);
+                        //orderDetailDAO.save(orderDetailsDto);
+                        cartTableBO.saveOrderDetail(orderDetailsDto);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -242,6 +243,7 @@ public class CartTableController implements Initializable {
                 clearOrder();
             }
         }
+        System.out.println("not save order!");
     }
 
     private void minusButtonToTable() { //add column and change qty button

@@ -44,13 +44,14 @@ public class CartTableBOImpl implements CartTableBO {
 
     @Override
     public boolean saveOrderDetail(OrderDetailsDto orderDetailsDto) throws SQLException {
-       // return orderDetailDAO.save(new OrderDetail(orderDetailsDto.getId(),orderDetailsDto.getSize(),orderDetailsDto.getQty(),orderDetailsDto.getTotal(),orderDetailsDto.getOrderId(),orderDetailsDto.getUnitCost(),orderDetailsDto.getItemCode(),orderDetailsDto.getName(),orderDetailsDto.getUnitPrice()));
-        return false;
+        return orderDetailDAO.save(new OrderDetail(orderDetailsDto.getId(),orderDetailsDto.getSize(),orderDetailsDto.getQty(),orderDetailsDto.getTotal(),orderDetailsDto.getOrderId(),orderDetailsDto.getUnitCost(),orderDetailsDto.getItemCode(),orderDetailsDto.getName(),orderDetailsDto.getUnitPrice()));
+        //return false;
     }
 
     @Override
-    public boolean dineAndPickUpCustomerSave(CustomerDto customerDto) throws SQLException {
-        return customerDAO.save(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),"No Address",customerDto.getMobile()));
-      //  return false;
+    public CustomerDto dineAndPickUpCustomerSave(CustomerDto customerDto) throws SQLException {
+        Customer customer = customerDAO.dineAndPickUpCustomerSave(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),"No Address",customerDto.getMobile()));
+        return new CustomerDto(customer.getId(),customer.getFName(),customer.getLName(),customer.getAddress(),customer.getMobile());
+        //  return false;
     }
 }

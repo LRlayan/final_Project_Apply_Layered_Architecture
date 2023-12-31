@@ -1,6 +1,7 @@
 package lk.ijse.hotBurger.dao.custom.impl;
 
 import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.Entity.OrderDetail;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.OrderDetailDAO;
 import lk.ijse.hotBurger.dto.OrderDetailsDto;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
     @Override
-    public boolean save(OrderDetailsDto entity) throws SQLException {
+    public boolean save(OrderDetail entity) throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //        String sql = "INSERT INTO orderdetail VALUES(?,?,?,?,?,?,?,?)";
 //
@@ -32,12 +33,12 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public List<OrderDetailsDto> getAll() throws SQLException {
+    public List<OrderDetail> getAll() throws SQLException {
         return null;
     }
 
     @Override
-    public boolean update(OrderDetailsDto dto) throws SQLException {
+    public boolean update(OrderDetail dto) throws SQLException {
         return false;
     }
 
