@@ -3,7 +3,6 @@
 CREATE DATABASE hotBurger;
 
 USE hotBurger;
-select * from user;
 
 CREATE TABLE user(
             id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
