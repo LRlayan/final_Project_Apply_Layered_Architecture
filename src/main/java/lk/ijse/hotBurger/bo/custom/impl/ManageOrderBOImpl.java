@@ -16,14 +16,14 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     @Override
     public ArrayList<OrderDto> loadAllOrders() throws SQLException {
 
-//        List<OrderDto> getAllOrder = orderDAO.getAll();
-//        ArrayList<OrderDto> orderDto = new ArrayList<>();
-//
-//        for(OrderDto orders : getAllOrder){
-//            orderDto.add(new OrderDto(orders.getId(),orders.getType(),orders.getDate(),orders.getSubTotal(),orders.getDiscount(),orders.getDeliveryCharge(),orders.getTotal(),orders.getCustomerId()));
-//        }
-//        return orderDto;
-      return null;
+        List<Order> getAllOrder = orderDAO.getAll();
+        ArrayList<OrderDto> orderDto = new ArrayList<>();
+
+        for(Order orders : getAllOrder){
+            orderDto.add(new OrderDto(orders.getId(),orders.getType(),orders.getDate(),orders.getSubTotal(),orders.getDiscount(),orders.getDeliveryCharge(),orders.getTotal(),orders.getCustomerId()));
+        }
+        return orderDto;
+      //return null;
     }
 
     @Override
@@ -32,20 +32,19 @@ public class ManageOrderBOImpl implements ManageOrderBO {
       //  return false;
     }
 
-//    @Override
-//    public OrderDto totalSalesAmount() throws SQLException {
-//        Order getOrder = orderDAO.totalSalesAmount();
-//        OrderDto orderDto = new OrderDto(getOrder.getId(),getOrder.getSubTotal(),getOrder.getDeliveryCharge(),getOrder.getDiscount(),getOrder.getTotal(),getOrder.getDate(),getOrder.getCustomerId(),getOrder.getType());
-//        return orderDto;
-//    }
+    @Override
+    public OrderDto totalSalesAmount() throws SQLException {
+        Order getOrder = orderDAO.totalSalesAmount();
+        return new OrderDto(getOrder.getId(),getOrder.getType(),getOrder.getDate(),getOrder.getSubTotal(),getOrder.getDiscount(),getOrder.getDeliveryCharge(),getOrder.getTotal(),getOrder.getCustomerId());
+    }
 
-//    @Override
-//    public int totalSales() throws SQLException {
-//        return orderDAO.totalSales();
-//    }
-//
-//    @Override
-//    public boolean profit() throws SQLException {
-//        return false;
-//    }
+    @Override
+    public int totalSales() throws SQLException {
+        return orderDAO.totalSales();
+    }
+
+    @Override
+    public boolean profit() throws SQLException {
+        return false;
+    }
 }

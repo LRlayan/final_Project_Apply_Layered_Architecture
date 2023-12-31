@@ -243,7 +243,6 @@ public class CartTableController implements Initializable {
                 clearOrder();
             }
         }
-        System.out.println("not save order!");
     }
 
     private void minusButtonToTable() { //add column and change qty button

@@ -122,7 +122,6 @@ public class CustomerDAOImpl implements CustomerDAO {
             if (generatedKeys.next()){
                 int generatedId = generatedKeys.getInt(1);
                 if (generatedId != 0) {
-                    System.out.println("athulata awa");
                     entity.setId(generatedId);
                     DineInCustomerFormController.customerDto.setId(generatedId);
                     return entity;

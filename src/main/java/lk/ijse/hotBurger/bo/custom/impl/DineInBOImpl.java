@@ -13,8 +13,9 @@ public class DineInBOImpl implements DineInBO {
     CustomerDAO customerDAO = new CustomerDAOImpl();
     @Override
     public CustomerDto dineAndPickUpCustomerSave(CustomerDto dto) throws SQLException {
-//
-//       return customerDAO.dineAndPickUpCustomerSave(new Customer(dto.getId(),dto.getFName(),dto.getLName(),dto.getAddress(),dto.getMobile()));
-    return null;
+
+       Customer customer = customerDAO.dineAndPickUpCustomerSave(new Customer(dto.getId(),dto.getFName(),dto.getLName(),dto.getAddress(),dto.getMobile()));
+       return new CustomerDto(customer.getId(),customer.getFName(),customer.getLName(),customer.getAddress(),customer.getMobile());
+       //  return null;
     }
 }
