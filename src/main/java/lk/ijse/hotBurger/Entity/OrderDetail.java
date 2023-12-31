@@ -1,5 +1,6 @@
 package lk.ijse.hotBurger.Entity;
 
+import lk.ijse.hotBurger.dto.OrderDetailsDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

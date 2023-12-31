@@ -2,53 +2,72 @@ package lk.ijse.hotBurger.dao.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.hotBurger.Entity.Customer;
-import lk.ijse.hotBurger.dao.CrudDAO;
+import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.controller.DeliveryFormController;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.CustomerDAO;
 import lk.ijse.hotBurger.db.DbConnection;
-import lk.ijse.hotBurger.dto.CustomerDto;
-import lk.ijse.hotBurger.dto.UserDto;
+import lombok.NonNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
+    @NonNull
     @Override
     public boolean save(Customer entity) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql , PreparedStatement.RETURN_GENERATED_KEYS);
+        //String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES(?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 
-        preparedStatement.setInt(1,0);
-        preparedStatement.setString(2,entity.getFName());
-        preparedStatement.setString(3,entity.getLName());
-        preparedStatement.setString(4,entity.getAddress());
-        preparedStatement.setString(5,entity.getMobile());
+//        preparedStatement.setInt(1,0);
+//        preparedStatement.setString(2,entity.getFName());
+//        preparedStatement.setString(3,entity.getLName());
+//        preparedStatement.setString(4,entity.getAddress());
+//        preparedStatement.setString(5,entity.getMobile());
 
-        int affectedRow = preparedStatement.executeUpdate();
-
-        //  boolean affectedRow = SQLUtil.executeQuery("INSERT INTO customer VALUES(?,?,?,?,?)",customerDto);
-        if (affectedRow > 0){
-            new Alert(Alert.AlertType.INFORMATION,"Customer created successfully!");
+//        int affectedRow = preparedStatement.executeUpdate();
+//        boolean affectedRow = SQLUtil.executeQuery("INSERT INTO customer VALUES(?,?,?,?,?)",customerDto);
+        boolean affectedRow = SQLUtil.executeQueryWithGeneratedKey(preparedStatement, entity.getId(), entity.getFName(), entity.getLName(), entity.getMobile(), entity.getAddress());
+        if (affectedRow) {
+            new Alert(Alert.AlertType.INFORMATION, "Customer created successfully!");
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()){
+            if (generatedKeys.next()) {
                 int generatedId = generatedKeys.getInt(1);
                 entity.setId(generatedId);
+               // return entity;
+                DeliveryFormController.customerDto.setId(entity.getId());
+                DeliveryFormController.customerDto.setFName(entity.getFName());
+                DeliveryFormController.customerDto.setLName(entity.getLName());
+                DeliveryFormController.customerDto.setMobile(entity.getMobile());
+                DeliveryFormController.customerDto.setAddress(entity.getAddress());
                 //return entity; <- return type is not boolean
+//        ArrayList<CustomerDto> customer = new ArrayList<>();
+//        customer.add(new CustomerDto(entity.getId(),entity.getFName(),entity.getLName(),entity.getAddress(),entity.getMobile()));
+                //  CustomerDto customerDto = SQLUtil.test(preparedStatement,entity,entity.getId(),entity.getFName(),entity.getLName(),entity.getMobile(),entity.getAddress());
+//
+//        if (customerDto!= null){
+//                DeliveryFormController.customerDto.setId(customerDto.getId());
+//                DeliveryFormController.customerDto.setFName(customerDto.getFName());
+//                DeliveryFormController.customerDto.setLName(customerDto.getLName());
+//                DeliveryFormController.customerDto.setMobile(customerDto.getMobile());
+//                DeliveryFormController.customerDto.setAddress(customerDto.getAddress());
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer Error");
             }
-        }else {
-            new Alert(Alert.AlertType.ERROR,"Customer Error");
+            //  return null; <- return type is not boolean
         }
-      //  return null; <- return type is not boolean
         return false;
     }
 
     @Override
-    public ArrayList<Customer> getAll() throws SQLException {
+    public List<Customer> getAll() throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
 //        Connection connection = DbConnection.getInstance().getConnection();
 //
@@ -83,18 +102,19 @@ public class CustomerDAOImpl implements CustomerDAO {
     public Customer dineAndPickUpCustomerSave(Customer entity) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
-        String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
+//        String sql = "INSERT INTO customer VALUES(?,?,?,?,?)";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES(?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 
-        preparedStatement.setInt(1,0);
-        preparedStatement.setString(2,entity.getFName());
-        preparedStatement.setString(3,entity.getLName());
-        preparedStatement.setString(4,"No Address");
-        preparedStatement.setString(5,entity.getMobile());
+//        preparedStatement.setInt(1,0);
+//        preparedStatement.setString(2,entity.getFName());
+//        preparedStatement.setString(3,entity.getLName());
+//        preparedStatement.setString(4,"No Address");
+//        preparedStatement.setString(5,entity.getMobile());
 
-        int affectedRow = preparedStatement.executeUpdate();
-        if (affectedRow > 0){
+       // int affectedRow = preparedStatement.executeUpdate();
+        boolean affectedRow = SQLUtil.executeQueryWithGeneratedKey(preparedStatement,entity.getId(),entity.getFName(),entity.getLName(),"No Address",entity.getMobile());
+        if (affectedRow){
             new Alert(Alert.AlertType.INFORMATION,"Customer created successfully!");
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 

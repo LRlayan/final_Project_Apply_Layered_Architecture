@@ -11,8 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.AppInitializer;
+import lk.ijse.hotBurger.Entity.Item;
+import lk.ijse.hotBurger.Entity.OrderDetail;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.dao.custom.ItemDAO;
+import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
 import lk.ijse.hotBurger.dto.GridPaneItemDto;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.OrderDetailsDto;
@@ -29,7 +33,7 @@ import java.util.*;
 import static java.lang.Integer.parseInt;
 
 public class GridPaneItemController implements Initializable {
-    public static AnchorPane ancpane;
+    public static AnchorPane anchorPane;
     public static int x;
 
     public static int categoryId;
@@ -45,8 +49,10 @@ public class GridPaneItemController implements Initializable {
 
     List<ItemDto> itemDto = new ArrayList<>();
 
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
+    ItemModel itemModel = new ItemModel();
+    ItemDAO itemDAO = new ItemDAOImpl();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -57,7 +63,7 @@ public class GridPaneItemController implements Initializable {
     }
 
     public void setImgAndNameAndPrice() throws SQLException {
-        itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
+        itemDto = itemModel.loadAllItemCategoryVise(categoryId);
 
         Image image = new Image(itemDto.get(x).getImage());
         ImageView imageView = new ImageView(image);
@@ -101,8 +107,8 @@ public class GridPaneItemController implements Initializable {
                 }
             }
             Parent parent = FXMLLoader.load(getClass().getResource("/view/cartTable.fxml"));
-            ancpane.getChildren().clear();
-            ancpane.getChildren().add(parent);
+            anchorPane.getChildren().clear();
+            anchorPane.getChildren().add(parent);
 
 
         } catch (IOException e) {

@@ -1,27 +1,21 @@
 package lk.ijse.hotBurger.dao.custom.impl;
 
-import lk.ijse.hotBurger.Entity.ItemCategory;
-import lk.ijse.hotBurger.dao.CrudDAO;
+import lk.ijse.hotBurger.Entity.Order;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.ItemCategoryDAO;
-import lk.ijse.hotBurger.db.DbConnection;
 import lk.ijse.hotBurger.dto.ItemCategoryDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemCategoryDAOImpl implements ItemCategoryDAO {
     @Override
-    public boolean save(ItemCategory dto) throws SQLException {
+    public boolean save(ItemCategoryDto dto) throws SQLException {
         return false;
     }
 
     @Override
-    public ArrayList<ItemCategory> getAll() throws SQLException {
+    public List<ItemCategoryDto> getAll() throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //
 //        String sql = "SELECT * FROM itemCategory";
@@ -43,7 +37,7 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
     }
 
     @Override
-    public boolean update(ItemCategory dto) throws SQLException {
+    public boolean update(ItemCategoryDto dto) throws SQLException {
         return false;
     }
 

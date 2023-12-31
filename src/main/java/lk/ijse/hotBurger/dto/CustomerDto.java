@@ -1,5 +1,6 @@
 package lk.ijse.hotBurger.dto;
 
+import lk.ijse.hotBurger.Entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,4 @@ public class CustomerDto {
     private String lName;
     private String address;
     private String mobile;
-
 }

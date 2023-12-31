@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.dao.custom.ItemDAO;
+import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.tm.ItemTm;
 import lk.ijse.hotBurger.model.ItemModel;
@@ -67,8 +69,9 @@ public class GmailItemController implements Initializable {
         @FXML
         private TextField sendEmail;
 
-        //static ItemModel itemModel = new ItemModel();
-        static ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+        static ItemModel itemModel = new ItemModel();
+        ItemDAO itemDAO = new ItemDAOImpl();
+       // static ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
         DuplicateMethodController duplicate = new DuplicateMethodController();
 
@@ -77,7 +80,11 @@ public class GmailItemController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setCellValueFactory();
-        loadAllItem();
+        try {
+            loadAllItem();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         searchBarItem();
     }
     private void setCellValueFactory(){
@@ -88,10 +95,10 @@ public class GmailItemController implements Initializable {
             colItemCategoryId.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
         }
 
-        public void loadAllItem(){
+        public void loadAllItem() throws SQLException {
 
             try {
-                List<ItemDto> dtoList = manageItemBO.getAllItem();
+                List<ItemDto> dtoList = ItemModel.getAllItem();
                 for (ItemDto dto : dtoList) {
                     observableList.add(new ItemTm(
                             dto.getId(),
@@ -106,8 +113,8 @@ public class GmailItemController implements Initializable {
 
             } catch (HeadlessException e) {
                 throw new RuntimeException(e);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
             }
         }
 
@@ -180,8 +187,8 @@ public class GmailItemController implements Initializable {
         sendEmail(email);
     }
 
-    private static Message prepareMessage(Session session, String myAccountEmail, String recepient) throws SQLException {
-        List<ItemDto> itemList = manageItemBO.getAllItem();
+    private Message prepareMessage(Session session, String myAccountEmail, String recepient) throws SQLException {
+        List<ItemDto> itemList = ItemModel.getAllItem();
 
         try {
             Message message = new MimeMessage(session);

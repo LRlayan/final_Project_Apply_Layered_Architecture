@@ -18,10 +18,10 @@ public class ItemCategoryBOImpl implements ItemCategoryBO {
    ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
     @Override
     public ArrayList<ItemCategoryDto> getAllItemCategory() throws SQLException {
-       ArrayList<ItemCategory> itemCategories = itemCategoryModel.getAllItemCategory();
+       ArrayList<ItemCategoryDto> itemCategories = itemCategoryModel.getAllItemCategory();
        ArrayList<ItemCategoryDto> categoryDTO = new ArrayList<>();
 
-        for (ItemCategory itemCategory : itemCategories) {
+        for (ItemCategoryDto itemCategory : itemCategories) {
             categoryDTO.add(new ItemCategoryDto(itemCategory.getId(),itemCategory.getName(),itemCategory.getDescription()));
         }
         return categoryDTO;

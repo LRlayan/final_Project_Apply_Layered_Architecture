@@ -1,17 +1,14 @@
 package lk.ijse.hotBurger.dao.custom.impl;
 
+import lk.ijse.hotBurger.Entity.Order;
 import lk.ijse.hotBurger.Entity.User;
-import lk.ijse.hotBurger.dao.CrudDAO;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.UserDAO;
-import lk.ijse.hotBurger.db.DbConnection;
-import lk.ijse.hotBurger.dto.UserDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -21,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public ArrayList<User> getAll() throws SQLException {
+    public List<User> getAll() throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //
 //        String sql = "SELECT * from user";

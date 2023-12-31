@@ -12,6 +12,7 @@ import lk.ijse.hotBurger.dto.UserDto;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DuplicateMethodController {
 
@@ -40,7 +41,7 @@ public class DuplicateMethodController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
-    public void incorrectCredential(ArrayList<UserDto> allUsers , String usernamePassword, String usernamePasswordMessage , javafx.scene.control.Label usernamePasswordLabelIncorrect) throws SQLException {
+    public void incorrectCredential(List<UserDto> allUsers , String usernamePassword, String usernamePasswordMessage , javafx.scene.control.Label usernamePasswordLabelIncorrect) throws SQLException {
         for (int i = 0; i < allUsers.size(); i++) {
             if (usernamePassword.equals(allUsers.get(i).getUsername()) || usernamePassword.equals(allUsers.get(i).getPassword())) {
                 usernamePasswordLabelIncorrect.setVisible(false);

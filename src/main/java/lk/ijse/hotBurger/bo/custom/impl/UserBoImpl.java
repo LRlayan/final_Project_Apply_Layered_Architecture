@@ -4,27 +4,30 @@ import lk.ijse.hotBurger.Entity.User;
 import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dao.DAOFactory;
 import lk.ijse.hotBurger.dao.custom.UserDAO;
+import lk.ijse.hotBurger.dao.custom.impl.UserDAOImpl;
 import lk.ijse.hotBurger.dto.UserDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserBoImpl implements UserBO {
 
-    UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.USER);
+    UserDAO userDAO = new UserDAOImpl();
     @Override
     public ArrayList<UserDto> getAll() throws SQLException {
-        ArrayList<User> allUsers = userDAO.getAll();
+        List<User> allUsers = userDAO.getAll();
         ArrayList<UserDto> userDto = new ArrayList<>();
 
         for (User users : allUsers) {
             userDto.add(new UserDto(users.getId(),users.getType(),users.getPassword(),users.getUsername(),users.getEmailAddress(),users.getPhone()));
         }
         return userDto;
+      //  return null;
     }
 
     @Override
-    public boolean update(User dto) throws SQLException {
+    public boolean update(UserDto dto) throws SQLException {
         return false;
     }
 

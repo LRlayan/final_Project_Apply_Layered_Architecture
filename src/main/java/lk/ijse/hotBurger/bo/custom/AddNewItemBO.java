@@ -6,5 +6,5 @@ import lk.ijse.hotBurger.dto.AddNewItemDto;
 import java.sql.SQLException;
 
 public interface AddNewItemBO extends SuperBO {
-    boolean addNewItem(AddNewItemDto newItemDto) throws SQLException;
+    boolean saveNewItem(AddNewItemDto newItemDto) throws SQLException;
 }

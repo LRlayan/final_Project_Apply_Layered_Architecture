@@ -1,7 +1,7 @@
 package lk.ijse.hotBurger.dao.custom.impl;
 
 import lk.ijse.hotBurger.Entity.Order;
-import lk.ijse.hotBurger.dao.CrudDAO;
+import lk.ijse.hotBurger.controller.CartTableController;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.OrderDAO;
 import lk.ijse.hotBurger.db.DbConnection;
@@ -12,31 +12,41 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
     @Override
     public boolean save(Order entity) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "INSERT INTO orders VALUES(?,?,?,?,?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql , PreparedStatement.RETURN_GENERATED_KEYS);
+       // String sql = "INSERT INTO orders VALUES(?,?,?,?,?,?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders VALUES(?,?,?,?,?,?,?,?)" , PreparedStatement.RETURN_GENERATED_KEYS);
 
-        preparedStatement.setInt(1, 0);
-        preparedStatement.setString(2, entity.getType());
-        preparedStatement.setString(3, entity.getDate());
-        preparedStatement.setDouble(4, entity.getSubTotal());
-        preparedStatement.setDouble(5, entity.getDiscount());
-        preparedStatement.setDouble(6, entity.getDeliveryCharge());
-        preparedStatement.setDouble(7, entity.getTotal());
-        preparedStatement.setInt(8, entity.getCustomerId());
-
-        preparedStatement.executeUpdate();
-
-        int affectedRow = preparedStatement.executeUpdate();
-        if (affectedRow > 0){
+//        preparedStatement.setInt(1, 0);
+//        preparedStatement.setString(2, entity.getType());
+//        preparedStatement.setString(3, entity.getDate());
+//        preparedStatement.setDouble(4, entity.getSubTotal());
+//        preparedStatement.setDouble(5, entity.getDiscount());
+//        preparedStatement.setDouble(6, entity.getDeliveryCharge());
+//        preparedStatement.setDouble(7, entity.getTotal());
+//        preparedStatement.setInt(8, entity.getCustomerId());
+//
+//       // preparedStatement.executeUpdate();
+//
+//        int affectedRow = preparedStatement.executeUpdate();
+        boolean affectedRow = SQLUtil.executeQueryWithGeneratedKey(preparedStatement,entity.getId(),entity.getType(),entity.getDate(),entity.getSubTotal(),entity.getDiscount(),entity.getDeliveryCharge(),entity.getTotal(),entity.getCustomerId());
+        if (affectedRow){
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()){
                 int generatedId = generatedKeys.getInt(1);
                 entity.setId(generatedId);
+                CartTableController.order.setId(entity.getId());
+                CartTableController.order.setType(entity.getType());
+                CartTableController.order.setSubTotal(entity.getSubTotal());
+                CartTableController.order.setDiscount(entity.getDiscount());
+                CartTableController.order.setDate(entity.getDate());
+                CartTableController.order.setDeliveryCharge(entity.getDeliveryCharge());
+                CartTableController.order.setTotal(entity.getTotal());
+                CartTableController.order.setCustomerId(entity.getCustomerId());
                 //return entity; <- return type is not boolean
             }
         }
@@ -45,7 +55,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public ArrayList<Order> getAll() throws SQLException {
+    public List<Order> getAll() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
 //        Connection connection = DbConnection.getInstance().getConnection();
 //        String sql = "SELECT * FROM orders";
@@ -55,13 +65,13 @@ public class OrderDAOImpl implements OrderDAO {
         while (resultSet.next()){
             Order order = new Order(
                     resultSet.getInt(1),
-                    resultSet.getDouble(2),
-                    resultSet.getDouble(3),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
                     resultSet.getDouble(4),
                     resultSet.getDouble(5),
-                    resultSet.getString(6),
-                    resultSet.getInt(7),
-                    resultSet.getString(8)
+                    resultSet.getDouble(6),
+                    resultSet.getDouble(7),
+                    resultSet.getInt(8)
             );
             orders.add(order);
         }
@@ -105,12 +115,12 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean update(Order dto) throws SQLException {
+    public boolean delete(String id) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException {
+    public boolean update(Order dto) throws SQLException {
         return false;
     }
 }

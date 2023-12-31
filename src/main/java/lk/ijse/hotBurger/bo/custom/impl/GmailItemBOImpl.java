@@ -14,12 +14,13 @@ public class GmailItemBOImpl implements GmailItemBO {
     ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     @Override
     public ArrayList<ItemDto> getAllItem() throws SQLException {
-      ArrayList<Item> allItem = itemDAO.getAll();
-      ArrayList<ItemDto> itemDto = new ArrayList<>();
-
-        for (Item items : allItem) {
-            itemDto.add(new ItemDto(items.getCategoryId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getId()));
-        }
-        return itemDto;
+//      ArrayList<Item> allItem = itemDAO.getAll();
+//      ArrayList<ItemDto> itemDto = new ArrayList<>();
+//
+//        for (Item items : allItem) {
+//            itemDto.add(new ItemDto(items.getId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getCategoryId()));
+//        }
+//        return itemDto;
+        return null;
     }
 }

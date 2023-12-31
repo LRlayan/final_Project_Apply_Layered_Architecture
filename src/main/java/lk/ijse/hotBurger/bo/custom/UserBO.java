@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 public interface UserBO extends SuperBO {
     ArrayList<UserDto> getAll() throws SQLException;
-    boolean update(User dto) throws SQLException;
+    boolean update(UserDto dto) throws SQLException;
     boolean delete(String id) throws SQLException;
 }

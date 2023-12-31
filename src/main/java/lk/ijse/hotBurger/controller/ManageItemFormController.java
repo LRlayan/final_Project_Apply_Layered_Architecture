@@ -64,7 +64,7 @@ public class ManageItemFormController implements Initializable {
     private TableColumn<?, ?> colUpdate;
 
     ItemModel itemModel = new ItemModel();
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+//    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
     ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
@@ -168,7 +168,7 @@ public class ManageItemFormController implements Initializable {
     private void deleteItemData(String itemCode){
 
         try{
-            boolean isDelete = manageItemBO.deleteItem(itemCode);
+            boolean isDelete = itemModel.deleteItem(itemCode);
             if (isDelete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Delete Successfully!").show();
             }

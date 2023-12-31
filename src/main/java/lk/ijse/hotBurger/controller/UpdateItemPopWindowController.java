@@ -46,8 +46,8 @@ public class UpdateItemPopWindowController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-   // ItemModel itemModel = new ItemModel();
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    ItemModel itemModel = new ItemModel();
+   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
    // private List<ItemDto> dtoList;
 
     @FXML
@@ -64,9 +64,9 @@ public class UpdateItemPopWindowController implements Initializable {
             double unitPrice = Double.parseDouble(txtUnitPrice.getText());
             double unitCost = Double.parseDouble(txtUnitCost.getText());
 
-            var itemDto = new ItemDto(categoryId,itemCode,itemName,unitPrice,unitCost, itemId);
+            var itemDto = new ItemDto( itemId,itemCode,itemName,unitPrice,unitCost,categoryId);
             try{
-                 boolean isUpdate = manageItemBO.updateItem(itemDto);
+                 boolean isUpdate = itemModel.updateItem(itemDto);
                  if (isUpdate){
                      new Alert(Alert.AlertType.INFORMATION,"Update Successfully").show();
                  }
@@ -84,7 +84,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
     public void loadDataTextField() throws SQLException {
         //initialize weddima item table eke select karana row eke data tika updateItemPopWindow ekata set wela thiyenna one
-        List<ItemDto> dtoList = manageItemBO.getAllItem();
+        List<ItemDto> dtoList = itemModel.getAllItem();
 
           for (int i = 0; i < dtoList.size(); i++) {
             txtItemCode.setText(dtoList.get(i).getItemCode());

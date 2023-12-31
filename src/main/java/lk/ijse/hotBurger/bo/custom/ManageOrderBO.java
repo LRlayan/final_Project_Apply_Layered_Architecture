@@ -10,4 +10,8 @@ import java.util.List;
 
 public interface ManageOrderBO extends SuperBO {
     ArrayList<OrderDto> loadAllOrders() throws SQLException;
+    boolean saveOrder(OrderDto order) throws SQLException;
+//    OrderDto totalSalesAmount() throws SQLException;
+//    int totalSales() throws SQLException;
+//    boolean profit() throws SQLException;
 }

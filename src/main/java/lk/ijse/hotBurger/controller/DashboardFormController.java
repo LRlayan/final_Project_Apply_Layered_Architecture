@@ -28,8 +28,6 @@ public class DashboardFormController implements Initializable {
     @FXML
     private AnchorPane adminPanelAnchorpane;
 
-
-
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
     public void clickDashboard(ActionEvent actionEvent) throws IOException {

@@ -36,17 +36,17 @@ public class BurgerCategoryFormController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
     public void initializeLoadGridPane(int categoryId) throws SQLException {
-        List<ItemDto> itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
+        List<ItemDto> itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
         int column = 0;
         int row = 0;
         for (int i = 0; i < itemDto.size(); i++) {
             GridPaneItemController.x = i;
             GridPaneItemController.categoryId = categoryId;
-            GridPaneItemController.ancpane = pane;
+            GridPaneItemController.anchorPane = pane;
             try {
                 Parent parent = FXMLLoader.load(getClass().getResource("/view/gridPaneItem.fxml"));
                 gridpane.add(parent,column,row++);
@@ -66,7 +66,7 @@ public class BurgerCategoryFormController implements Initializable {
 
         gridpane.getChildren().clear();
 
-        List<ItemDto> itemDtos = manageItemBO.loadAllItemCategoryVise(categoryId);
+        List<ItemDto> itemDtos = ItemModel.loadAllItemCategoryVise(categoryId);
 
         if (itemDtos == null) {
             System.out.println("itemDtos is null");

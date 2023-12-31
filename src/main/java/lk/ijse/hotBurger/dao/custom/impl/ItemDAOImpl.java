@@ -1,16 +1,19 @@
 package lk.ijse.hotBurger.dao.custom.impl;
 
-import lk.ijse.hotBurger.Entity.Item;
+import lk.ijse.hotBurger.Entity.Order;
 import lk.ijse.hotBurger.dao.SQLUtil;
 import lk.ijse.hotBurger.dao.custom.ItemDAO;
+import lk.ijse.hotBurger.dto.ItemDto;
+import lk.ijse.hotBurger.dto.OrderDto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
 
     @Override
-    public boolean save(Item dto) throws SQLException {
+    public boolean save(ItemDto dto) throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //
 //        String sql = "INSERT INTO item VALUES(?,?,?,?,?,?,?)";
@@ -29,7 +32,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ArrayList<Item> getAll() throws SQLException {
+    public List<ItemDto> getAll() throws SQLException {
      //   ArrayList<Item> itemDtos = new ArrayList<>();
 //            Connection connection = DbConnection.getInstance().getConnection();
 //            PreparedStatement preparedStatement = connection.prepareStatement("SELECT  * FROM item");
@@ -53,7 +56,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean update(Item item) throws SQLException {
+    public boolean update(ItemDto item) throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //        String sql = "UPDATE item SET name = ?, itemCode = ?,unitPrice = ?,unitCost = ?,categoryId = ? WHERE id = ?";
 //
@@ -81,7 +84,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ArrayList<Item> loadAllItemCategoryVise(int catID) throws SQLException {
+    public ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException {
 //        ArrayList<ItemDto> itemDtos = new ArrayList<>();
 //        try {
 //            Connection connection = DbConnection.getInstance().getConnection();

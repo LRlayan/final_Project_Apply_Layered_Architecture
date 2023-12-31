@@ -14,17 +14,17 @@ import java.util.List;
 
 public class ItemCategoryModel {
 
-    public static ArrayList<ItemCategory> getAllItemCategory() throws SQLException {
+    public static ArrayList<ItemCategoryDto> getAllItemCategory() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM itemCategory";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        ArrayList<ItemCategory> itemCategoryList = new  ArrayList<>();
+        ArrayList<ItemCategoryDto> itemCategoryList = new  ArrayList<>();
 
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            itemCategoryList.add(new ItemCategory(
+            itemCategoryList.add(new ItemCategoryDto(
                     resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(3)

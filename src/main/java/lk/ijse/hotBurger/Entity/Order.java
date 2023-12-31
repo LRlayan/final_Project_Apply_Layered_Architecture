@@ -14,12 +14,12 @@ import java.util.List;
 
 public class Order {
     private int id;
-    private double subTotal = 0;
-    private double deliveryCharge;
-    private double discount;
-    private double total;
-    private String date;
-    private int customerId;
     private String type;
+    private String date;
+    private double subTotal = 0;
+    private double discount;
+    private double deliveryCharge;
+    private double total;
+    private int customerId;
 
 }

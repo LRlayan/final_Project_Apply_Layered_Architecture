@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.dao.custom.OrderDAO;
+import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.hotBurger.dto.OrderDto;
 import lk.ijse.hotBurger.dto.tm.OrderTm;
 import lk.ijse.hotBurger.model.OrderModel;
@@ -15,6 +18,7 @@ import lk.ijse.hotBurger.model.OrderModel;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageOrderFormController implements Initializable {
@@ -58,14 +62,14 @@ public class ManageOrderFormController implements Initializable {
     @FXML
     private TextField orderSearch;
 
-    OrderModel orderModel = new OrderModel();
-
+    //OrderModel orderModel = new OrderModel();
+    OrderDAO orderDAO = new OrderDAOImpl();
     ObservableList<OrderTm> obList = FXCollections.observableArrayList();
 
     public void loadAllOrders(){
         try{
-          ArrayList<OrderDto> orderDto = orderModel.loadAllOrders();
-            for (OrderDto dto : orderDto) {
+          List<Order> order = orderDAO.getAll();
+            for (Order dto : order) {
                  obList.add(new OrderTm(
                     dto.getId(),
                     dto.getSubTotal(),
@@ -104,13 +108,13 @@ public class ManageOrderFormController implements Initializable {
 
     public void setTextLabelSales(){
         try{
-            OrderDto orderDto = orderModel.totalSalesAmount();
+            Order orderDto = orderDAO.totalSalesAmount();
             lblTotalAmount.setText("Rs . " + orderDto.getTotal());
 
-            int totalSales = orderModel.totalSales();
+            int totalSales = orderDAO.totalSales();
             lblTotalSale.setText(String.valueOf(totalSales));
 
-            OrderDto orderDto3 = orderModel.profit();
+            Order orderDto3 = orderDAO.profit();
             lblProfit.setText("Rs . " + 12520.00);
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());

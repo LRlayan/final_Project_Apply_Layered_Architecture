@@ -17,7 +17,4 @@ public class Item {
     private String  categoryId;
     private String image;
 
-    public Item(int id, String itemCode, String name, double unitPrice, double unitCost, String categoryId) {
-
-    }
 }

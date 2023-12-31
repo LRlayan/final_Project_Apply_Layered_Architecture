@@ -10,6 +10,24 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.Entity.OrderDetail;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.CartTableBO;
+import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
+import lk.ijse.hotBurger.bo.custom.DeliveryBO;
+import lk.ijse.hotBurger.bo.custom.ManageOrderBO;
+import lk.ijse.hotBurger.bo.custom.impl.CartTableBOImpl;
+import lk.ijse.hotBurger.bo.custom.impl.CustomerDetailBOImpl;
+import lk.ijse.hotBurger.bo.custom.impl.ManageOrderBOImpl;
+import lk.ijse.hotBurger.dao.custom.CustomerDAO;
+import lk.ijse.hotBurger.dao.custom.DeliveryDetailDAO;
+import lk.ijse.hotBurger.dao.custom.OrderDAO;
+import lk.ijse.hotBurger.dao.custom.OrderDetailDAO;
+import lk.ijse.hotBurger.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.hotBurger.dao.custom.impl.DeliveryDetailDAOImpl;
+import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
+import lk.ijse.hotBurger.dao.custom.impl.OrderDetailDAOImpl;
 import lk.ijse.hotBurger.db.DbConnection;
 import lk.ijse.hotBurger.dto.OrderDetailsDto;
 import lk.ijse.hotBurger.dto.OrderDto;
@@ -31,6 +49,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CartTableController implements Initializable {
+
     public static OrderDto order = new OrderDto();
     public static List<OrderDetailsDto> orderDetails = new ArrayList<>();
     ObservableList<OrderDetailsDto> observableList = FXCollections.observableArrayList();
@@ -46,9 +65,6 @@ public class CartTableController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colUnitPrice;
-
-    @FXML
-    private TableColumn<?, ?> colChangeQty;
 
     @FXML
     private TableView<OrderDetailsDto> tbl;
@@ -79,13 +95,24 @@ public class CartTableController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    CustomerModel customerModel = new CustomerModel();
+   // CustomerModel customerModel = new CustomerModel();
+    CustomerDAO customerDAO = new CustomerDAOImpl();
+    //CustomerDetailBO customerDetailBO = new CustomerDetailBOImpl();
+   // CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
 
-    DeliveryModel deliveryModel = new DeliveryModel();
+   // DeliveryModel deliveryModel = new DeliveryModel();
+    DeliveryDetailDAO deliveryDetailDAO = new DeliveryDetailDAOImpl();
+    //DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.DELIVERY);
 
-    OrderModel orderModel = new OrderModel();
+    //OrderModel orderModel = new OrderModel();
+    OrderDAO orderDAO = new OrderDAOImpl();
+    ManageOrderBO manageOrderBO = new ManageOrderBOImpl();
+    // ManageOrderBO manageOrderBO = (ManageOrderBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ORDER);
+   // CartTableBO cartTableBO = (CartTableBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CART_TABLE);
 
+    CartTableBO cartTableBO = new CartTableBOImpl();
     OrderDto orderDto = new OrderDto();
+    OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
 
     OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
     @Override
@@ -153,22 +180,25 @@ public class CartTableController implements Initializable {
 
         try {
             if (selectButton > 0) {
-                customerModel.saveCustomer(DeliveryFormController.customerDto);
+                //customerDAO.save(DeliveryFormController.customerDto);
+                cartTableBO.saveCustomer(DeliveryFormController.customerDto);
 
                 if (DeliveryFormController.customerDto.getId() != 0) {
 
                     DeliveryFormController.deliveryDto.setCustomerId(DeliveryFormController.customerDto.getId());
-                    deliveryModel.saveDelivery(DeliveryFormController.deliveryDto);
+                   // deliveryDetailDAO.save(DeliveryFormController.deliveryDto);
+                    cartTableBO.saveDelivery(DeliveryFormController.deliveryDto);
 
                     if (DeliveryFormController.deliveryDto.getId() != 0) {
                         order.setCustomerId(DeliveryFormController.customerDto.getId());
-                        orderModel.saveOrder(order);
+                        //orderDAO.save(order);
+                        cartTableBO.saveOrder(order);
 
                         if (order.getId() != 0) {
                             orderDetails.forEach(orderDetailsDto -> {
                                 try {
                                     orderDetailsDto.setOrderId(order.getId());
-                                    orderDetailsModel.saveOrderDetail(orderDetailsDto);
+                                    orderDetailDAO.save(orderDetailsDto);
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -192,15 +222,18 @@ public class CartTableController implements Initializable {
     }
 
     public void dineInAndPickUpCustomer() throws SQLException, JRException {
-        customerModel.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
+        //customerDAO.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
+        cartTableBO.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
         if (DineInCustomerFormController.customerDto.getId() != 0) {
             order.setCustomerId(DineInCustomerFormController.customerDto.getId());
-            orderModel.saveOrder(order);
+           // orderDAO.save(order);
+            cartTableBO.saveOrder(order);
             if (order.getId() != 0) {
                 orderDetails.forEach(orderDetailsDto -> {
                     try {
                         orderDetailsDto.setOrderId(order.getId());
-                        orderDetailsModel.saveOrderDetail(orderDetailsDto);
+                        orderDetailDAO.save(orderDetailsDto);
+                       // cartTableBO.saveOrderDetail(orderDetailsDto);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }

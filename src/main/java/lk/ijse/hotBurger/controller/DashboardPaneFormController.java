@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.dao.custom.OrderDAO;
+import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.hotBurger.dto.OrderDto;
 import lk.ijse.hotBurger.model.OrderModel;
 
@@ -23,7 +26,8 @@ public class DashboardPaneFormController implements Initializable {
     @FXML
     private Label lblTotalSalesAmount;
 
-    OrderModel orderModel = new OrderModel();
+    //OrderModel orderModel = new OrderModel();
+    OrderDAO orderDAO = new OrderDAOImpl();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         totalSalesAmount();
@@ -31,13 +35,13 @@ public class DashboardPaneFormController implements Initializable {
 
     public void totalSalesAmount(){
         try{
-            OrderDto orderDto = orderModel.totalSalesAmount();
+            Order orderDto = orderDAO.totalSalesAmount();
             lblTotalSalesAmount.setText("Rs . " + orderDto.getTotal());
 
-            int totalSales = orderModel.totalSales();
+            int totalSales = orderDAO.totalSales();
             lblTotalSales.setText(String.valueOf(totalSales));
 
-            OrderDto orderDto3 = orderModel.profit();
+            Order orderDto3 = orderDAO.profit();
             lblProfit.setText("Rs . " + 12520.00);
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());

@@ -10,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.ItemCategoryBO;
+import lk.ijse.hotBurger.dao.custom.ItemCategoryDAO;
+import lk.ijse.hotBurger.dao.custom.impl.ItemCategoryDAOImpl;
 import lk.ijse.hotBurger.dto.ItemCategoryDto;
 import lk.ijse.hotBurger.dto.tm.ItemCategoryTm;
 import lk.ijse.hotBurger.model.ItemCategoryModel;
@@ -35,9 +37,9 @@ public class ItemCategoryFormController {
     @FXML
     private TextField categorySearchBar;
 
-   // ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
-    ItemCategoryBO itemCategoryBO = (ItemCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ITEM_CATEGORY);
-
+    ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
+   // ItemCategoryBO itemCategoryBO = (ItemCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ITEM_CATEGORY);
+    ItemCategoryDAO itemCategoryDAO = new ItemCategoryDAOImpl();
     public void initialize(){
         setCellValueFactory();
         loadAllItemCategory();
@@ -55,7 +57,7 @@ public class ItemCategoryFormController {
     public void loadAllItemCategory(){
 
         try{
-            List<ItemCategoryDto> itemCategoryDtoList = itemCategoryBO.getAllItemCategory();
+            List<ItemCategoryDto> itemCategoryDtoList = itemCategoryModel.getAllItemCategory();
 
             for ( ItemCategoryDto dto : itemCategoryDtoList) {
                 obList.add(new ItemCategoryTm(
