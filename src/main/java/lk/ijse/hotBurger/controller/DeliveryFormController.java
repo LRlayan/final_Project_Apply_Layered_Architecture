@@ -8,8 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.hotBurger.Entity.Customer;
+import lk.ijse.hotBurger.Entity.DeliveryDetail;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
+import lk.ijse.hotBurger.bo.custom.impl.CustomerDetailBOImpl;
+import lk.ijse.hotBurger.dao.custom.CustomerDAO;
+import lk.ijse.hotBurger.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.hotBurger.dto.CustomerDto;
 import lk.ijse.hotBurger.dto.DeliveryDto;
 import lk.ijse.hotBurger.dto.tm.CustomerTm;
@@ -68,14 +73,18 @@ public class DeliveryFormController {
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
    // CustomerModel customerModel = new CustomerModel();
-    CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
-    static CustomerDto customerDto = new CustomerDto();
+  // CustomerDAO customerDAO = new CustomerDAOImpl();
+   CustomerDetailBO customerDetailBO = new CustomerDetailBOImpl();
+    // CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
+    public static CustomerDto customerDto = new CustomerDto();
 
-    static DeliveryDto deliveryDto = new DeliveryDto();
+    public static DeliveryDto deliveryDto = new DeliveryDto();
 
+    //private List<CustomerDto> customerDtoList = customerModel.getAllCustomers();
+    //private List<CustomerDto> customerDtoList = customerDAO.getAll();
     private List<CustomerDto> customerDtoList = customerDetailBO.getAll();
 
-    private Set<String> _customerDtoLis = new HashSet<>();
+    private Set<String> _customerDtoLis = new HashSet<>(); //search
 
     public void initialize() throws IOException {
 
