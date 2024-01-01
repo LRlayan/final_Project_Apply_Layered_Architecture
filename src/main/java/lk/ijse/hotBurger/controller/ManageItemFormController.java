@@ -36,6 +36,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ManageItemFormController implements Initializable {
+
     @FXML
     private TableColumn<?, ?> colItemCategoryId;
 
@@ -63,10 +64,8 @@ public class ManageItemFormController implements Initializable {
     @FXML
     private TableColumn<?, ?> colUpdate;
 
-    ItemModel itemModel = new ItemModel();
-//    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
     DuplicateMethodController duplicate = new DuplicateMethodController();
-
     ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
 
     @Override
@@ -93,7 +92,7 @@ public class ManageItemFormController implements Initializable {
     public void loadAllItem() throws SQLException {
 
         try {
-            ArrayList<ItemDto> dtoList = itemModel.getAllItem();
+            ArrayList<ItemDto> dtoList = manageItemBO.getAllItem();
             for (ItemDto dto : dtoList) {
                 observableList.add(new ItemTm(
                         dto.getId(),
@@ -106,9 +105,7 @@ public class ManageItemFormController implements Initializable {
                         new JFXButton("Delete")
                 ));
             }
-
             itemtable.setItems(observableList);
-
         } catch (HeadlessException e) {
             throw new RuntimeException(e);
         }
@@ -168,7 +165,7 @@ public class ManageItemFormController implements Initializable {
     private void deleteItemData(String itemCode){
 
         try{
-            boolean isDelete = itemModel.deleteItem(itemCode);
+            boolean isDelete = manageItemBO.deleteItem(itemCode);
             if (isDelete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Delete Successfully!").show();
             }
@@ -211,7 +208,6 @@ public class ManageItemFormController implements Initializable {
                 }
             });
         });
-
         SortedList<ItemTm> sortedData = new SortedList<>(filteredList);
         sortedData.comparatorProperty().bind(itemtable.comparatorProperty());
         itemtable.setItems(sortedData);
