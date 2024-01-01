@@ -50,11 +50,8 @@ public class GridPaneItemController implements Initializable {
 
     List<ItemDto> itemDto = new ArrayList<>();
 
-  //  ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
-    ItemModel itemModel = new ItemModel();
-   // ItemDAO itemDAO = new ItemDAOImpl();
-    ManageItemBO manageItemBO = new ManageItemBOImpl();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -67,12 +64,13 @@ public class GridPaneItemController implements Initializable {
     public void setImgAndNameAndPrice() throws SQLException {
         itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
-        Image image = new Image(itemDto.get(x).getImage());
-        ImageView imageView = new ImageView(image);
+                Image image = new Image(itemDto.get(x).getImage());
+                ImageView imageView = new ImageView(image);
 
-        img.setImage(imageView.getImage());
-        nameLabel.setText(itemDto.get(x).getName());
-        priceLabel.setText(String.valueOf(itemDto.get(x).getUnitPrice()));
+                img.setImage(imageView.getImage());
+                nameLabel.setText(itemDto.get(x).getName());
+                priceLabel.setText(String.valueOf(itemDto.get(x).getUnitPrice()));
+
     }
 
     @FXML

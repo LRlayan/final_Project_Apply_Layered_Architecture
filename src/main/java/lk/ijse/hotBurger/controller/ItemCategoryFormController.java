@@ -37,11 +37,9 @@ public class ItemCategoryFormController {
 
     @FXML
     private TextField categorySearchBar;
+    ItemCategoryBO itemCategoryBO = (ItemCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ITEM_CATEGORY);
+    ObservableList<ItemCategoryTm> obList = FXCollections.observableArrayList();
 
-   // ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
-    ItemCategoryBO itemCategoryBO = new ItemCategoryBOImpl();
-    // ItemCategoryBO itemCategoryBO = (ItemCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ITEM_CATEGORY);
-    ItemCategoryDAO itemCategoryDAO = new ItemCategoryDAOImpl();
     public void initialize(){
         setCellValueFactory();
         loadAllItemCategory();
@@ -53,8 +51,6 @@ public class ItemCategoryFormController {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
-
-    ObservableList<ItemCategoryTm> obList = FXCollections.observableArrayList();
 
     public void loadAllItemCategory(){
 
@@ -68,7 +64,6 @@ public class ItemCategoryFormController {
                         dto.getDescription()
                 ));
             }
-
             categoryTable.setItems(obList);
         }catch (SQLException e){
             throw new RuntimeException(e);
@@ -76,10 +71,7 @@ public class ItemCategoryFormController {
     }
 
     @FXML
-    void categorySearchBarOnAction(ActionEvent event) {
-
-
-    }
+    void categorySearchBarOnAction(ActionEvent event) { }
 
     public void categorySearchBar(){
         FilteredList<ItemCategoryTm> filteredList = new FilteredList<>(obList, b -> true);
@@ -103,7 +95,6 @@ public class ItemCategoryFormController {
                 }
             });
         });
-
         SortedList<ItemCategoryTm> sortedData = new SortedList<>(filteredList);
         sortedData.comparatorProperty().bind(categoryTable.comparatorProperty());
         categoryTable.setItems(sortedData);

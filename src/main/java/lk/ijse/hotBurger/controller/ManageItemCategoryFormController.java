@@ -32,6 +32,7 @@ public class ManageItemCategoryFormController implements Initializable {
     private Label lblItemCategory;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
