@@ -68,7 +68,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> getAll() throws SQLException {
+    public ArrayList<Customer> getAll() throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
 //        Connection connection = DbConnection.getInstance().getConnection();
 //

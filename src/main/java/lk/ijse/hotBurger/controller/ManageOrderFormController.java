@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.dao.DAOFactory;
 import lk.ijse.hotBurger.dao.custom.OrderDAO;
 import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.hotBurger.dto.OrderDto;
@@ -62,8 +63,7 @@ public class ManageOrderFormController implements Initializable {
     @FXML
     private TextField orderSearch;
 
-    //OrderModel orderModel = new OrderModel();
-    OrderDAO orderDAO = new OrderDAOImpl();
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER );
     ObservableList<OrderTm> obList = FXCollections.observableArrayList();
 
     public void loadAllOrders(){
@@ -143,7 +143,6 @@ public class ManageOrderFormController implements Initializable {
                 }
             });
         });
-
         SortedList<OrderTm> sortedData = new SortedList<>(filteredList);
         sortedData.comparatorProperty().bind(orderTable.comparatorProperty());
         orderTable.setItems(sortedData);

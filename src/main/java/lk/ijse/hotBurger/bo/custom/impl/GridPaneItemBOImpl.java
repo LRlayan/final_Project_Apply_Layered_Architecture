@@ -10,18 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GridPaneItemBOImpl implements GridPaneItemBO {
-
     ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+
     @Override
     public ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException {
-//        ArrayList<Item> allItems = itemDAO.loadAllItemCategoryVise(catID);
-//
-//        ArrayList<ItemDto> itemDto = new ArrayList<>();
-//        for (Item items : allItems) {
-//            itemDto.add(new ItemDto(items.getId(), items.getItemCode(), items.getName(), items.getUnitPrice(), items.getUnitCost(), items.getCategoryId(), null));
-//
-//        }
-//        return itemDto;
-        return null;
+        ArrayList<Item> allItems = itemDAO.loadAllItemCategoryVise(catID);
+
+        ArrayList<ItemDto> itemDto = new ArrayList<>();
+        for (Item items : allItems) {
+            itemDto.add(new ItemDto(items.getId(), items.getItemCode(), items.getName(), items.getUnitPrice(), items.getUnitCost(), items.getCategoryId(), null));
+
+        }
+        return itemDto;
     }
 }

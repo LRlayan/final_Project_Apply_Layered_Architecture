@@ -7,7 +7,6 @@ import lk.ijse.hotBurger.dao.custom.UserDAO;
 import java.sql.SQLException;
 
 public class ForgetChangePasswordBOImpl implements ForgetChangePasswordBO {
-
     UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.USER);
     @Override
     public boolean updateUserPassword(String confirmPassword, int userId) throws SQLException {

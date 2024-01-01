@@ -14,8 +14,7 @@ public class AddNewItemBOImpl implements AddNewItemBO {
 
     @Override
     public boolean saveNewItem(AddNewItemDto newItemDto) throws SQLException {
-       //return itemDAO.save(new Item(newItemDto.getId(),newItemDto.getItemCode(),newItemDto.getName(),newItemDto.getUnitPrice(),newItemDto.getUnitCost(),newItemDto.getCategoryId(),null));
-        return false;
+       return itemDAO.save(new Item(newItemDto.getId(),newItemDto.getItemCode(),newItemDto.getName(),newItemDto.getUnitPrice(),newItemDto.getUnitCost(),newItemDto.getCategoryId(),null));
     }
 }
 

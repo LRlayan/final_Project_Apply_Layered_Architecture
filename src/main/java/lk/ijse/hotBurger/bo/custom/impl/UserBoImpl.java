@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserBoImpl implements UserBO {
+    UserDAO userDAO = (UserDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.USER);
 
-    UserDAO userDAO = new UserDAOImpl();
     @Override
     public ArrayList<UserDto> getAll() throws SQLException {
         List<User> allUsers = userDAO.getAll();
@@ -23,16 +23,20 @@ public class UserBoImpl implements UserBO {
             userDto.add(new UserDto(users.getId(),users.getType(),users.getPassword(),users.getUsername(),users.getEmailAddress(),users.getPhone()));
         }
         return userDto;
-      //  return null;
     }
 
     @Override
-    public boolean update(UserDto dto) throws SQLException {
+    public boolean updatePassword(String confirmPassword, int userId) throws SQLException {
+        return userDAO.updateUserPassword(confirmPassword, userId);
+    }
+
+    @Override
+    public boolean updateUsername(String confirmUsername, int userId) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException {
+    public boolean deleteUser(String id) throws SQLException {
         return false;
     }
 }

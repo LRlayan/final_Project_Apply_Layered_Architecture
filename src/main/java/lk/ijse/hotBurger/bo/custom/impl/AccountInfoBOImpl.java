@@ -14,7 +14,6 @@ public class AccountInfoBOImpl implements AccountInfoBO {
     public boolean updateUsername(String confirmUsername, int userId) throws SQLException {
         return userDAO.updateUsername(confirmUsername, userId);
     }
-
     @Override
     public boolean updateUserPassword(String confirmPassword, int userId) throws SQLException {
         return userDAO.updateUserPassword(confirmPassword, userId);

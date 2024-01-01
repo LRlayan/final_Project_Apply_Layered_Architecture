@@ -41,11 +41,7 @@ public class CustomerDetailsFormController implements Initializable {
     @FXML
     private TableColumn<?, ?> mobile;
 
-   // CustomerModel customerModel = new CustomerModel();
-    CustomerDAO customerDAO = new CustomerDAOImpl();
     CustomerDetailBO customerDetailBO = new CustomerDetailBOImpl();
-
-  //  CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
     ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
     @Override

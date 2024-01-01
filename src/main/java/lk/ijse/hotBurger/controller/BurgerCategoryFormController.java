@@ -26,6 +26,7 @@ public class BurgerCategoryFormController implements Initializable {
     public static BurgerCategoryFormController getInstance() {
         return instance;
     }
+
     public GridPane gridpane;
 
     @FXML
@@ -35,8 +36,7 @@ public class BurgerCategoryFormController implements Initializable {
     protected AnchorPane toppingsAnchorpane;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
-
-   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
     public void initializeLoadGridPane(int categoryId) throws SQLException {
         List<ItemDto> itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
@@ -60,22 +60,22 @@ public class BurgerCategoryFormController implements Initializable {
     protected void clickLoadGridPane(int categoryId , String fxml) throws SQLException {
 
         if (gridpane == null) {
-            System.out.println("burgerGridpane is null");
+            System.out.println("burgerGridPane is null");
             return;
         }
 
         gridpane.getChildren().clear();
 
-        List<ItemDto> itemDtos = ItemModel.loadAllItemCategoryVise(categoryId);
+        List<ItemDto> itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
-        if (itemDtos == null) {
-            System.out.println("itemDtos is null");
+        if (itemDto == null) {
+            System.out.println("itemDto is null");
             return;
         }
 
         int column = 0;
         int row = 0;
-        for (int i = 0; i < itemDtos.size(); i++) {
+        for (int i = 0; i < itemDto.size(); i++) {
             GridPaneItemController.x = i;
             GridPaneItemController.categoryId = categoryId;
 
@@ -88,7 +88,6 @@ public class BurgerCategoryFormController implements Initializable {
                 } else {
                     System.out.println("FXMLLoader failed to load parent");
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,7 +104,6 @@ public class BurgerCategoryFormController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         try {
             initializeLoadGridPane(1);
         } catch (SQLException e) {

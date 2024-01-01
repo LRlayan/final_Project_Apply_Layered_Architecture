@@ -13,15 +13,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ItemCategoryBOImpl implements ItemCategoryBO {
+    ItemCategoryDAO itemCategoryDAO = (ItemCategoryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM_CATEGORY);
 
-    //ItemCategoryDAO itemCategoryDAO = (ItemCategoryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM_CATEGORY);
-   ItemCategoryModel itemCategoryModel = new ItemCategoryModel();
     @Override
     public ArrayList<ItemCategoryDto> getAllItemCategory() throws SQLException {
-       ArrayList<ItemCategoryDto> itemCategories = itemCategoryModel.getAllItemCategory();
+       ArrayList<ItemCategory> itemCategories = itemCategoryDAO.getAll();
        ArrayList<ItemCategoryDto> categoryDTO = new ArrayList<>();
 
-        for (ItemCategoryDto itemCategory : itemCategories) {
+        for (ItemCategory itemCategory : itemCategories) {
             categoryDTO.add(new ItemCategoryDto(itemCategory.getId(),itemCategory.getName(),itemCategory.getDescription()));
         }
         return categoryDTO;

@@ -33,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GmailItemController implements Initializable {
+
         @FXML
         private TableColumn<?, ?> colItemCategoryId;
 
@@ -47,7 +48,6 @@ public class GmailItemController implements Initializable {
 
         @FXML
         private TableColumn<?, ?> colItemPrice;
-
         @FXML
         private TableColumn<?, ?> colUpdateDelete;
 
@@ -56,10 +56,8 @@ public class GmailItemController implements Initializable {
 
         @FXML
         private TextField txtSearchbar;
-
         @FXML
         private TableColumn<?, ?> colDelete;
-
         @FXML
         private TableColumn<?, ?> colUpdate;
 
@@ -69,12 +67,8 @@ public class GmailItemController implements Initializable {
         @FXML
         private TextField sendEmail;
 
-        static ItemModel itemModel = new ItemModel();
-        ItemDAO itemDAO = new ItemDAOImpl();
-       // static ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
-
+        ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
         DuplicateMethodController duplicate = new DuplicateMethodController();
-
         ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
 
     @Override
@@ -87,6 +81,7 @@ public class GmailItemController implements Initializable {
         }
         searchBarItem();
     }
+
     private void setCellValueFactory(){
             colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
             colItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -98,7 +93,7 @@ public class GmailItemController implements Initializable {
         public void loadAllItem() throws SQLException {
 
             try {
-                List<ItemDto> dtoList = ItemModel.getAllItem();
+                List<ItemDto> dtoList = manageItemBO.getAllItem();
                 for (ItemDto dto : dtoList) {
                     observableList.add(new ItemTm(
                             dto.getId(),
@@ -113,8 +108,6 @@ public class GmailItemController implements Initializable {
 
             } catch (HeadlessException e) {
                 throw new RuntimeException(e);
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
             }
         }
 
@@ -188,7 +181,7 @@ public class GmailItemController implements Initializable {
     }
 
     private Message prepareMessage(Session session, String myAccountEmail, String recepient) throws SQLException {
-        List<ItemDto> itemList = ItemModel.getAllItem();
+        List<ItemDto> itemList = manageItemBO.getAllItem();
 
         try {
             Message message = new MimeMessage(session);

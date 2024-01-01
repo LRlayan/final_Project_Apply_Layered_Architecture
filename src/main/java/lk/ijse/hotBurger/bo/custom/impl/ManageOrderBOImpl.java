@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageOrderBOImpl implements ManageOrderBO {
-
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+
     @Override
     public ArrayList<OrderDto> loadAllOrders() throws SQLException {
 
@@ -23,13 +23,11 @@ public class ManageOrderBOImpl implements ManageOrderBO {
             orderDto.add(new OrderDto(orders.getId(),orders.getType(),orders.getDate(),orders.getSubTotal(),orders.getDiscount(),orders.getDeliveryCharge(),orders.getTotal(),orders.getCustomerId()));
         }
         return orderDto;
-      //return null;
     }
 
     @Override
     public boolean saveOrder(OrderDto order) throws SQLException {
         return orderDAO.save(new Order(order.getId(), order.getType(), order.getDate(), order.getSubTotal(), order.getDiscount(), order.getDeliveryCharge(), order.getTotal(), order.getCustomerId()));
-      //  return false;
     }
 
     @Override

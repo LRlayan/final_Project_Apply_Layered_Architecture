@@ -19,11 +19,11 @@ public class SendCodeForEmailController {
 
     @FXML
     private Label lblCode;
-
     @FXML
     private Label lblSignIn;
 
     DuplicateMethodController navigate = new DuplicateMethodController();
+
     @FXML
     void codeVerifyOnAction(ActionEvent event) throws IOException {
        String code = String.valueOf(526974);

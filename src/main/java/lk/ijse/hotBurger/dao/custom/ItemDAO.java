@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ItemDAO extends CrudDAO<ItemDto> {
+public interface ItemDAO extends CrudDAO<Item> {
   //  boolean addNewItem(Item newItemDto) throws SQLException;
-  ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException;
+   ArrayList<Item> loadAllItemCategoryVise(int catID) throws SQLException;
 
 }

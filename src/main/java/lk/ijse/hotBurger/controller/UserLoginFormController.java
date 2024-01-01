@@ -34,10 +34,7 @@ public class UserLoginFormController {
     private PasswordField txtPasswordField;
 
     DuplicateMethodController navigate = new DuplicateMethodController();
-   // UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
-    //UserDAO userDAO = new UserDAOImpl();
-    UserBO userBO = new UserBoImpl();
-
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
     List<UserDto> allUsers;
 
     {
@@ -65,14 +62,12 @@ public class UserLoginFormController {
     }
 
     public void onEnterKeyUsername(KeyEvent keyEvent) throws IOException, SQLException {
-        //ArrayList<UserDto> allUsers = UserModel.getAllUsers();
         String username = txtUsername.getText();
         navigate.incorrectCredential(allUsers , username , "Incorrect Username" , lblUsername);
     }
 
     @FXML
     void OnEnterPassword(KeyEvent event) throws SQLException {
-        //ArrayList<UserDto> allUsers = UserModel.getAllUsers();
         String password = txtPasswordField.getText();
         navigate.incorrectCredential(allUsers , password , "Incorrect Password" , lblPassword);
     }

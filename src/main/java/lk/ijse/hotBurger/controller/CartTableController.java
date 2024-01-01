@@ -90,31 +90,12 @@ public class CartTableController implements Initializable {
     @FXML
     private Label lblDeliveryCharge;
 
-
-    int selectButton;
+   private int selectButton;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
-
-   // CustomerModel customerModel = new CustomerModel();
-    CustomerDAO customerDAO = new CustomerDAOImpl();
-    //CustomerDetailBO customerDetailBO = new CustomerDetailBOImpl();
-   // CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
-
-   // DeliveryModel deliveryModel = new DeliveryModel();
-    DeliveryDetailDAO deliveryDetailDAO = new DeliveryDetailDAOImpl();
-    //DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.DELIVERY);
-
-    //OrderModel orderModel = new OrderModel();
-    OrderDAO orderDAO = new OrderDAOImpl();
-    ManageOrderBO manageOrderBO = new ManageOrderBOImpl();
-    // ManageOrderBO manageOrderBO = (ManageOrderBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ORDER);
-   // CartTableBO cartTableBO = (CartTableBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CART_TABLE);
-
-    CartTableBO cartTableBO = new CartTableBOImpl();
+    CartTableBO cartTableBO = (CartTableBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CART_TABLE);
     OrderDto orderDto = new OrderDto();
-    OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
 
-    OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setValueFactory();
@@ -180,25 +161,21 @@ public class CartTableController implements Initializable {
 
         try {
             if (selectButton > 0) {
-                //customerDAO.save(DeliveryFormController.customerDto);
                 cartTableBO.saveCustomer(DeliveryFormController.customerDto);
 
                 if (DeliveryFormController.customerDto.getId() != 0) {
 
                     DeliveryFormController.deliveryDto.setCustomerId(DeliveryFormController.customerDto.getId());
-                   // deliveryDetailDAO.save(DeliveryFormController.deliveryDto);
                     cartTableBO.saveDelivery(DeliveryFormController.deliveryDto);
 
                     if (DeliveryFormController.deliveryDto.getId() != 0) {
                         order.setCustomerId(DeliveryFormController.customerDto.getId());
-                        //orderDAO.save(order);
                         cartTableBO.saveOrder(order);
 
                         if (order.getId() != 0) {
                             orderDetails.forEach(orderDetailsDto -> {
                                 try {
                                     orderDetailsDto.setOrderId(order.getId());
-                                   // orderDetailDAO.save(orderDetailsDto);
                                     cartTableBO.saveOrderDetail(orderDetailsDto);
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
@@ -223,17 +200,14 @@ public class CartTableController implements Initializable {
     }
 
     public void dineInAndPickUpCustomer() throws SQLException, JRException {
-        //customerDAO.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
         cartTableBO.dineAndPickUpCustomerSave(DineInCustomerFormController.customerDto);
         if (DineInCustomerFormController.customerDto.getId() != 0) {
             order.setCustomerId(DineInCustomerFormController.customerDto.getId());
-           // orderDAO.save(order);
             cartTableBO.saveOrder(order);
             if (order.getId() != 0) {
                 orderDetails.forEach(orderDetailsDto -> {
                     try {
                         orderDetailsDto.setOrderId(order.getId());
-                        //orderDetailDAO.save(orderDetailsDto);
                         cartTableBO.saveOrderDetail(orderDetailsDto);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);

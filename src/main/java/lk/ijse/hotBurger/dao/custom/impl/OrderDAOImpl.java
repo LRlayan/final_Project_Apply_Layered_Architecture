@@ -55,7 +55,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> getAll() throws SQLException {
+    public ArrayList<Order> getAll() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
 //        Connection connection = DbConnection.getInstance().getConnection();
 //        String sql = "SELECT * FROM orders";

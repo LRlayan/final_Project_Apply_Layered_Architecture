@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 
 public class RemoveIngrediantFormController implements Initializable {
 
-
     @FXML
     private JFXCheckBox checkBoxMayonnaise;
 

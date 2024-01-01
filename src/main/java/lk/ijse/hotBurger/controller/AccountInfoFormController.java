@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AccountInfoFormController {
-
     public static int userId;
 
     public Label redLblPassword;
@@ -49,15 +48,14 @@ public class AccountInfoFormController {
     private Label lblConfirmPassword;
 
     DuplicateMethodController checkPassword = new DuplicateMethodController();
-    UserModel userModel = new UserModel();
-   // UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
-   // AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+    AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
 
     ArrayList<UserDto> getAllUsers;
 
     {
         try {
-            getAllUsers = UserModel.getAllUsers();
+            getAllUsers = userBO.getAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -73,11 +71,10 @@ public class AccountInfoFormController {
     void btnChangeUsernameOnAction(ActionEvent event) throws SQLException {
 
         String confirmUsername = txtConfirmUsername.getText();
-
         var user = new UserDto(confirmUsername);
 
         try{
-            boolean isUpdated = userModel.updateUser(confirmUsername ,userId);
+            boolean isUpdated = accountInfoBO.updateUsername(confirmUsername ,userId);
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION,"updated").show();
                 clearTextField(txtUsername,txtNewUsername,txtConfirmUsername);
@@ -91,8 +88,6 @@ public class AccountInfoFormController {
         setEditableTextField(txtNewUsername , false);
         setEditableTextField(txtConfirmUsername , false);
         String username = txtUsername.getText();
-
-       // ArrayList<UserDto> userDtoList = UserModel.getAllUsers();
 
         for (int i = 0; i < getAllUsers.size(); i++){
             if (username.equals(getAllUsers.get(i).getUsername())){
@@ -120,11 +115,9 @@ public class AccountInfoFormController {
         String confirmPassword = txtConfirmPassword.getText();
         String oldPassword = txtPassword.getText();
 
-        //List<UserDto> userDtoList = UserModel.getAllUsers();
-
         var user = new UserDto(confirmPassword);
         try {
-            boolean isUpdatePassword = userModel.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = accountInfoBO.updateUserPassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtPassword,txtNewPassword,txtConfirmPassword);

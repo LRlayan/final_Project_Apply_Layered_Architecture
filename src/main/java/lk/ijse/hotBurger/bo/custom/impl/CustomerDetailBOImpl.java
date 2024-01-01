@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDetailBOImpl implements CustomerDetailBO {
-
-    //CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
-    CustomerDAO customerDAO = new CustomerDAOImpl();
+    CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     @Override
     public boolean saveCustomer(CustomerDto customerDto) throws SQLException {
        return customerDAO.save(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),customerDto.getMobile(),customerDto.getAddress()));
@@ -31,14 +29,11 @@ public class CustomerDetailBOImpl implements CustomerDetailBO {
             customerDto.add(new CustomerDto(customers.getId(), customers.getFName(), customers.getLName(), customers.getMobile() , customers.getAddress()));
         }
         return customerDto;
-       // return null;
     }
 
     @Override
     public boolean dineAndPickUpCustomerSave(CustomerDto customerDto) throws SQLException {
         return customerDAO.save(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),customerDto.getAddress(),customerDto.getMobile()));
-        //return new CustomerDto(customer.getId(),customer.getFName(),customer.getLName(),customer.getAddress(),customer.getMobile());
-        //return false;
     }
 
     @Override

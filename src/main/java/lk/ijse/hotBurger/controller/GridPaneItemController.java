@@ -15,6 +15,7 @@ import lk.ijse.hotBurger.Entity.Item;
 import lk.ijse.hotBurger.Entity.OrderDetail;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.bo.custom.impl.ManageItemBOImpl;
 import lk.ijse.hotBurger.dao.custom.ItemDAO;
 import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
 import lk.ijse.hotBurger.dto.GridPaneItemDto;
@@ -49,10 +50,11 @@ public class GridPaneItemController implements Initializable {
 
     List<ItemDto> itemDto = new ArrayList<>();
 
-   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+  //  ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
     ItemModel itemModel = new ItemModel();
-    ItemDAO itemDAO = new ItemDAOImpl();
+   // ItemDAO itemDAO = new ItemDAOImpl();
+    ManageItemBO manageItemBO = new ManageItemBOImpl();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -63,7 +65,7 @@ public class GridPaneItemController implements Initializable {
     }
 
     public void setImgAndNameAndPrice() throws SQLException {
-        itemDto = itemModel.loadAllItemCategoryVise(categoryId);
+        itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
         Image image = new Image(itemDto.get(x).getImage());
         ImageView imageView = new ImageView(image);
@@ -109,7 +111,6 @@ public class GridPaneItemController implements Initializable {
             Parent parent = FXMLLoader.load(getClass().getResource("/view/cartTable.fxml"));
             anchorPane.getChildren().clear();
             anchorPane.getChildren().add(parent);
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);

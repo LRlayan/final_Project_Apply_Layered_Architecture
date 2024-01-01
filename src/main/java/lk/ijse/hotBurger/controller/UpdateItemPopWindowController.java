@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UpdateItemPopWindowController implements Initializable {
+
     public static int id;
     public static String categoryId;
     public static String itemCode;
@@ -46,9 +47,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    ItemModel itemModel = new ItemModel();
-   // ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
-   // private List<ItemDto> dtoList;
+    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
 
     @FXML
     void closeButtonOnAction(ActionEvent event) {
@@ -66,7 +65,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
             var itemDto = new ItemDto( itemId,itemCode,itemName,unitPrice,unitCost,categoryId);
             try{
-                 boolean isUpdate = itemModel.updateItem(itemDto);
+                 boolean isUpdate = manageItemBO.updateItem(itemDto);
                  if (isUpdate){
                      new Alert(Alert.AlertType.INFORMATION,"Update Successfully").show();
                  }
@@ -75,24 +74,10 @@ public class UpdateItemPopWindowController implements Initializable {
             }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //loadDataTextField();
         setData();
-    }
-
-    public void loadDataTextField() throws SQLException {
-        //initialize weddima item table eke select karana row eke data tika updateItemPopWindow ekata set wela thiyenna one
-        List<ItemDto> dtoList = itemModel.getAllItem();
-
-          for (int i = 0; i < dtoList.size(); i++) {
-            txtItemCode.setText(dtoList.get(i).getItemCode());
-            txtItemName.setText(dtoList.get(i).getName());
-            txtCategoryId.setText(dtoList.get(i).getCategoryId());
-            txtUnitCost.setText(String.valueOf(dtoList.get(i).getUnitCost()));
-            txtUnitPrice.setText(String.valueOf(dtoList.get(i).getUnitPrice()));
-        }
     }
 
     public void setData(){

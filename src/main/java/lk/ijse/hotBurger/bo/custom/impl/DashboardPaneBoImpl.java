@@ -9,12 +9,11 @@ import lk.ijse.hotBurger.dto.OrderDto;
 import java.sql.SQLException;
 
 public class DashboardPaneBoImpl implements DashboardPaneBO {
-
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+
     @Override
     public OrderDto totalSalesAmount() throws SQLException {
         Order totalSalesAmount = orderDAO.totalSalesAmount();
         return new OrderDto(totalSalesAmount.getTotal());
-       // return null;
     }
 }

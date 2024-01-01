@@ -71,19 +71,11 @@ public class DeliveryFormController {
     }
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
+    CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
 
-   // CustomerModel customerModel = new CustomerModel();
-  // CustomerDAO customerDAO = new CustomerDAOImpl();
-   CustomerDetailBO customerDetailBO = new CustomerDetailBOImpl();
-    // CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
     public static CustomerDto customerDto = new CustomerDto();
-
     public static DeliveryDto deliveryDto = new DeliveryDto();
-
-    //private List<CustomerDto> customerDtoList = customerModel.getAllCustomers();
-    //private List<CustomerDto> customerDtoList = customerDAO.getAll();
     private List<CustomerDto> customerDtoList = customerDetailBO.getAll();
-
     private Set<String> _customerDtoLis = new HashSet<>(); //search
 
     public void initialize() throws IOException {
@@ -94,16 +86,13 @@ public class DeliveryFormController {
         searchBarAutoTextField.setVisible(false);
         txtAdditionalAddress.setVisible(false);
         lblNewAddress.setVisible(false);
-
     }
 
     public void searchBar(){
         customerDtoList.forEach(customerDto -> {
             _customerDtoLis.add( customerDto.getMobile());
         });
-
         TextFields.bindAutoCompletion(searchBarAutoTextField, _customerDtoLis);
-
     }
 
     private void setTextFieldSearchBarDetail(){

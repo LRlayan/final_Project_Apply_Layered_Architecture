@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.AccountInfoBO;
 import lk.ijse.hotBurger.bo.custom.UserBO;
+import lk.ijse.hotBurger.dao.DAOFactory;
 import lk.ijse.hotBurger.dao.custom.UserDAO;
 import lk.ijse.hotBurger.dao.custom.impl.UserDAOImpl;
 import lk.ijse.hotBurger.dto.UserDto;
@@ -37,10 +38,9 @@ public class ForgerChangePasswordController {
     public static int userId;
 
     DuplicateMethodController navigate = new DuplicateMethodController();
-   // UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
-   // UserModel userModel = new UserModel();
-    UserDAO userDAO = new UserDAOImpl();
-   // AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
+
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+
     ArrayList<UserDto> allUsers;
 
     {
@@ -61,8 +61,7 @@ public class ForgerChangePasswordController {
             userId = allUsers.get(i).getId();
         }
         try {
-
-            boolean isUpdatePassword = userDAO.updateUserPassword(confirmPassword , userId);
+            boolean isUpdatePassword = userBO.updatePassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtNewPassword,txtConfirmPassword);

@@ -24,11 +24,15 @@ public class CashierWorkFormController implements Initializable {
 
     @FXML
     AnchorPane orderAnchorPane;
+
     @FXML
     private AnchorPane cashierMainAnchorpane;
+
     @FXML
     private AnchorPane mainAnchorpane;
+
     private static CashierWorkFormController instance;
+
     private BurgerCategoryFormController burgerGrid;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
@@ -113,7 +117,6 @@ public class CashierWorkFormController implements Initializable {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport1,
                 null,
                 DbConnection.getInstance().getConnection()
-
         );
         JasperViewer.viewReport(jasperPrint, false);
     }
@@ -121,6 +124,5 @@ public class CashierWorkFormController implements Initializable {
     @FXML
     void btnMailBoxOnAction(ActionEvent event) throws IOException {
         duplicate.popUpWindow("/view/gmailItem_form.fxml");
-
     }
 }

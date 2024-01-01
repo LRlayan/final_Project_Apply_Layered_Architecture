@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import lk.ijse.hotBurger.Entity.Order;
+import lk.ijse.hotBurger.dao.DAOFactory;
 import lk.ijse.hotBurger.dao.custom.OrderDAO;
 import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.hotBurger.dto.OrderDto;
@@ -26,8 +27,8 @@ public class DashboardPaneFormController implements Initializable {
     @FXML
     private Label lblTotalSalesAmount;
 
-    //OrderModel orderModel = new OrderModel();
-    OrderDAO orderDAO = new OrderDAOImpl();
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         totalSalesAmount();

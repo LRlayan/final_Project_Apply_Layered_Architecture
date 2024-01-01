@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public ArrayList<User> getAll() throws SQLException {
 //        Connection connection = DbConnection.getInstance().getConnection();
 //
 //        String sql = "SELECT * from user";

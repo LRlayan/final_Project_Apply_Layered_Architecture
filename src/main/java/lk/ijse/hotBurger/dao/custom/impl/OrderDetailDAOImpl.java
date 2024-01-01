@@ -8,6 +8,7 @@ import lk.ijse.hotBurger.dto.OrderDetailsDto;
 import lk.ijse.hotBurger.dto.OrderDto;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
@@ -33,7 +34,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public List<OrderDetail> getAll() throws SQLException {
+    public ArrayList<OrderDetail> getAll() throws SQLException {
         return null;
     }
 

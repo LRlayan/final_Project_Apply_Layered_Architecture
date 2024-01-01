@@ -13,7 +13,9 @@ public class ForgetPasswordController implements Initializable {
 
     @FXML
     private AnchorPane passwordAnchorpane;
+
     DuplicateMethodController navigate = new DuplicateMethodController();
+
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {

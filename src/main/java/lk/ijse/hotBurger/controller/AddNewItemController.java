@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class AddNewItemController {
+
     @FXML
     private TextField txtItemCategory;
 
@@ -33,13 +34,12 @@ public class AddNewItemController {
     @FXML
     private JFXButton btnCreate;
 
-
     @FXML
     private JFXButton closeButton;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
+    AddNewItemBO addNewItemBO = (AddNewItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ADD_NEW_ITEM);
 
-    //AddNewItemBO addNewItemBO = (AddNewItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ADD_NEW_ITEM);
     public void createBtnOnAction(ActionEvent actionEvent) {
         String code = txtItemCode.getText();
         String name = txtItemName.getText();
@@ -53,8 +53,7 @@ public class AddNewItemController {
 
             var newItemDto = new AddNewItemDto(code,name,unitPrice,unitCost,categoryId);
             try{
-                //boolean isAdd = addNewItemBO.saveNewItem(newItemDto);
-                boolean isAdd = AddNewItemModel.addNewItem(newItemDto);
+                boolean isAdd = addNewItemBO.saveNewItem(newItemDto);
                 if (isAdd){
                     duplicate.clickButtonCloseWindow(btnCreate);
                     new Alert(Alert.AlertType.CONFIRMATION,"Added Successfully!").show();

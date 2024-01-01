@@ -30,6 +30,7 @@ public class DineInCustomerFormController {
     public static CustomerDto customerDto = new CustomerDto();
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
+
     public void dineInCloseButtonOnAction(ActionEvent actionEvent) {
         duplicate.clickButtonCloseWindow(closeButton);
     }

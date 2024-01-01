@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeliveryDetailDAOImpl implements DeliveryDetailDAO {
@@ -53,7 +54,7 @@ public class DeliveryDetailDAOImpl implements DeliveryDetailDAO {
     }
 
     @Override
-    public List<DeliveryDetail> getAll() throws SQLException {
+    public ArrayList<DeliveryDetail> getAll() throws SQLException {
         return null;
     }
 

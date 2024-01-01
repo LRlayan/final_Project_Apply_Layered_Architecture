@@ -12,17 +12,15 @@ import java.util.ArrayList;
 
 public class BurgerCategoryBOImpl implements BurgerCategoryBO {
 
-    ItemDAO itemDAO = new ItemDAOImpl();
-
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     @Override
     public ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException {
-//        ArrayList<Item> allItem = itemDAO.loadAllItemCategoryVise(catID);
-//        ArrayList<ItemDto> itemDto = new ArrayList<>();
-//
-//        for (Item items : allItem) {
-//            itemDto.add(new ItemDto(items.getId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getCategoryId()));
-//        }
-//        return itemDto;
-        return null;
+        ArrayList<Item> allItem = itemDAO.loadAllItemCategoryVise(catID);
+        ArrayList<ItemDto> itemDto = new ArrayList<>();
+
+        for (Item items : allItem) {
+            itemDto.add(new ItemDto(items.getId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getCategoryId()));
+        }
+        return itemDto;
     }
 }
