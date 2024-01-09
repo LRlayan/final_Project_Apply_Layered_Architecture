@@ -8,9 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.bo.custom.BurgerCategoryBO;
 import lk.ijse.hotBurger.dto.ItemDto;
-import lk.ijse.hotBurger.model.ItemModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,11 +35,12 @@ public class BurgerCategoryFormController implements Initializable {
     protected AnchorPane toppingsAnchorpane;
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    BurgerCategoryBO burgerCategoryBO = (BurgerCategoryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.BURGER_CATEGORY);
     List<ItemDto> itemDto;
 
     public void initializeLoadGridPane(int categoryId) throws SQLException {
-        itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
+        //itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
+        itemDto = burgerCategoryBO.loadAllItemCategoryVise(categoryId);
 
         int column = 0;
         int row = 0;
@@ -65,11 +65,17 @@ public class BurgerCategoryFormController implements Initializable {
             return;
         }
         gridpane.getChildren().clear();
-        itemDto = manageItemBO.loadAllItemCategoryVise(categoryId);
+        //itemDto = burgerCategoryBO.loadAllItemCategoryVise(categoryId);
+        itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
-        if (itemDto == null) {
-            System.out.println("itemDto is null");
-            return;
+        if (itemDto != null){
+            System.out.println("dto not null");
+        for (int i = 0; i < itemDto.size(); i++) {
+            if (itemDto.get(i).getImage() == null) {
+                System.out.println("image is null");
+                return;
+            }
+        }
         }
 
         int column = 0;

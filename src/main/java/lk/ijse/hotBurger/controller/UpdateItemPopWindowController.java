@@ -7,14 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.ManageItemBO;
+import lk.ijse.hotBurger.bo.custom.UpdateItemPopUpWindowBO;
 import lk.ijse.hotBurger.dto.ItemDto;
-import lk.ijse.hotBurger.dto.tm.ItemTm;
-import lk.ijse.hotBurger.model.ItemModel;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class UpdateItemPopWindowController implements Initializable {
@@ -47,8 +44,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
 
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
-
+    UpdateItemPopUpWindowBO updateItem = (UpdateItemPopUpWindowBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.UPDATE_ITEM);
     @FXML
     void closeButtonOnAction(ActionEvent event) {
         duplicate.clickButtonCloseWindow(itemUpdateClose);
@@ -65,7 +61,7 @@ public class UpdateItemPopWindowController implements Initializable {
 
             var itemDto = new ItemDto( itemId,itemCode,itemName,unitPrice,unitCost,categoryId);
             try{
-                 boolean isUpdate = manageItemBO.updateItem(itemDto);
+                 boolean isUpdate = updateItem.updateItem(itemDto);
                  if (isUpdate){
                      new Alert(Alert.AlertType.INFORMATION,"Update Successfully").show();
                  }

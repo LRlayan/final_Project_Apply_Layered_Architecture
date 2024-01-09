@@ -16,10 +16,10 @@ CREATE TABLE user(
 INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'admin' , '123' , 'admin' , 'hotburger@gmail.com' , '0765937705');
 INSERT INTO user(id, username, password, type, emailAddress, phone) VALUES(not null , 'cashier' , '456' , 'cashier' , 'no mail' , '0757980223');
 
-UPDATE user SET username = 'admin' where id = 1;
-UPDATE user SET password = '123' where id = 1;
-UPDATE user SET username = 'cashier' where id = 2;
-UPDATE user SET password = '456' where id = 2;
+-- UPDATE user SET username = 'admin' where id = 1;
+-- UPDATE user SET password = '123' where id = 1;
+-- UPDATE user SET username = 'cashier' where id = 2;
+-- UPDATE user SET password = '456' where id = 2;
 
 
 CREATE TABLE itemCategory(

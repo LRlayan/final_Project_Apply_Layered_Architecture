@@ -14,12 +14,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.ManageItemBO;
-import lk.ijse.hotBurger.dao.custom.ItemDAO;
-import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
+import lk.ijse.hotBurger.bo.custom.GmailItemBO;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.tm.ItemTm;
-import lk.ijse.hotBurger.model.ItemModel;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -66,8 +63,7 @@ public class GmailItemController implements Initializable {
 
         @FXML
         private TextField sendEmail;
-
-        ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+        GmailItemBO gmailItemBO = (GmailItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.GMAIL_ITEM);
         DuplicateMethodController duplicate = new DuplicateMethodController();
         ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
 
@@ -93,7 +89,7 @@ public class GmailItemController implements Initializable {
         public void loadAllItem() throws SQLException {
 
             try {
-                List<ItemDto> dtoList = manageItemBO.getAllItem();
+                List<ItemDto> dtoList = gmailItemBO.getAllItem();
                 for (ItemDto dto : dtoList) {
                     observableList.add(new ItemTm(
                             dto.getId(),
@@ -181,7 +177,7 @@ public class GmailItemController implements Initializable {
     }
 
     private Message prepareMessage(Session session, String myAccountEmail, String recepient) throws SQLException {
-        List<ItemDto> itemList = manageItemBO.getAllItem();
+        List<ItemDto> itemList = gmailItemBO.getAllItem();
 
         try {
             Message message = new MimeMessage(session);

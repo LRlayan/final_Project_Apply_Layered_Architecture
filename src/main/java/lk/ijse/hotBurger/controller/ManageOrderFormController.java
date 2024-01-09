@@ -8,18 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.hotBurger.Entity.Order;
-import lk.ijse.hotBurger.dao.DAOFactory;
-import lk.ijse.hotBurger.dao.custom.OrderDAO;
-import lk.ijse.hotBurger.dao.custom.impl.OrderDAOImpl;
+import lk.ijse.hotBurger.bo.BOFactory;
+import lk.ijse.hotBurger.bo.custom.ManageOrderBO;
 import lk.ijse.hotBurger.dto.OrderDto;
 import lk.ijse.hotBurger.dto.tm.OrderTm;
-import lk.ijse.hotBurger.model.OrderModel;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageOrderFormController implements Initializable {
@@ -63,13 +59,14 @@ public class ManageOrderFormController implements Initializable {
     @FXML
     private TextField orderSearch;
 
-    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER );
+    ManageOrderBO manageOrderBO = (ManageOrderBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ORDER);
+
     ObservableList<OrderTm> obList = FXCollections.observableArrayList();
 
     public void loadAllOrders(){
         try{
-          List<Order> order = orderDAO.getAll();
-            for (Order dto : order) {
+          ArrayList<OrderDto> order = manageOrderBO.getAllOrders();
+            for (OrderDto dto : order) {
                  obList.add(new OrderTm(
                     dto.getId(),
                     dto.getSubTotal(),
@@ -108,13 +105,13 @@ public class ManageOrderFormController implements Initializable {
 
     public void setTextLabelSales(){
         try{
-            Order orderDto = orderDAO.totalSalesAmount();
+            OrderDto orderDto = manageOrderBO.totalSalesAmount();
             lblTotalAmount.setText("Rs . " + orderDto.getTotal());
 
-            int totalSales = orderDAO.totalSales();
+            int totalSales = manageOrderBO.totalSales();
             lblTotalSale.setText(String.valueOf(totalSales));
 
-            Order orderDto3 = orderDAO.profit();
+            OrderDto orderDto3 = manageOrderBO.profit();
             lblProfit.setText("Rs . " + 12520.00);
         }catch (SQLException e){
             new Alert(Alert.AlertType.ERROR,e.getMessage());

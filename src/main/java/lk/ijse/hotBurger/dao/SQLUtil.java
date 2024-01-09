@@ -1,13 +1,9 @@
 package lk.ijse.hotBurger.dao;
 
-import javafx.scene.control.Alert;
 import lk.ijse.hotBurger.db.DbConnection;
-import lk.ijse.hotBurger.dto.CustomerDto;
-import lk.ijse.hotBurger.model.CustomerModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLUtil {

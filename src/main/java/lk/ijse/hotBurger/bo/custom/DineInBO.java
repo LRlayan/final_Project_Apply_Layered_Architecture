@@ -7,5 +7,5 @@ import lk.ijse.hotBurger.dto.CustomerDto;
 import java.sql.SQLException;
 
 public interface DineInBO extends SuperBO {
-    CustomerDto dineAndPickUpCustomerSave(CustomerDto dto) throws SQLException;
+    CustomerDto dineCustomerSave(CustomerDto dto) throws SQLException;
 }

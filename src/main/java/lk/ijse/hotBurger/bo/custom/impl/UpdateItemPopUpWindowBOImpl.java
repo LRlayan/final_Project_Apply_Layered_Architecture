@@ -16,15 +16,4 @@ public class UpdateItemPopUpWindowBOImpl implements UpdateItemPopUpWindowBO {
     public boolean updateItem(ItemDto itemDto) throws SQLException {
         return itemDAO.update(new Item(itemDto.getId(),itemDto.getItemCode(),itemDto.getName(),itemDto.getUnitPrice(),itemDto.getUnitCost(),itemDto.getCategoryId(),null));
     }
-
-    @Override
-    public ArrayList<ItemDto> getAllItem() throws SQLException {
-       ArrayList<Item> getAllItem = itemDAO.getAll();
-       ArrayList<ItemDto> itemDto = new ArrayList<>();
-
-       for(Item items : getAllItem){
-            itemDto.add(new ItemDto(items.getId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getCategoryId()));
-       }
-       return itemDto;
-    }
 }

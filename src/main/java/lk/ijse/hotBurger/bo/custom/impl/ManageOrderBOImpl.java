@@ -14,7 +14,7 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
 
     @Override
-    public ArrayList<OrderDto> loadAllOrders() throws SQLException {
+    public ArrayList<OrderDto> getAllOrders() throws SQLException {
 
         List<Order> getAllOrder = orderDAO.getAll();
         ArrayList<OrderDto> orderDto = new ArrayList<>();
@@ -23,11 +23,6 @@ public class ManageOrderBOImpl implements ManageOrderBO {
             orderDto.add(new OrderDto(orders.getId(),orders.getType(),orders.getDate(),orders.getSubTotal(),orders.getDiscount(),orders.getDeliveryCharge(),orders.getTotal(),orders.getCustomerId()));
         }
         return orderDto;
-    }
-
-    @Override
-    public boolean saveOrder(OrderDto order) throws SQLException {
-        return orderDAO.save(new Order(order.getId(), order.getType(), order.getDate(), order.getSubTotal(), order.getDiscount(), order.getDeliveryCharge(), order.getTotal(), order.getCustomerId()));
     }
 
     @Override
@@ -42,7 +37,7 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     }
 
     @Override
-    public boolean profit() throws SQLException {
-        return false;
+    public OrderDto profit() throws SQLException {
+        return null;
     }
 }

@@ -34,7 +34,7 @@ public class BOFactory {
             case DASHBOARD:
                 return new DashboardBoImpl();
             case DASHBOARD_PANE:
-                return new DashboardBoImpl();
+                return new DashboardPaneBoImpl();
             case DELIVERY:
                 return new DeliveryBOImpl();
             case DINE_IN:
@@ -65,6 +65,8 @@ public class BOFactory {
                 return new UpdateItemPopUpWindowBOImpl();
             case USER:
                 return new UserBoImpl();
+            case GRID_PANE_ITEM:
+                return new GridPaneItemBOImpl();
             default:
                 return null;
         }

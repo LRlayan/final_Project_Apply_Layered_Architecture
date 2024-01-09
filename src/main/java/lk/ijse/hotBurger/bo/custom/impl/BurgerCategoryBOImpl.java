@@ -4,7 +4,6 @@ import lk.ijse.hotBurger.Entity.Item;
 import lk.ijse.hotBurger.bo.custom.BurgerCategoryBO;
 import lk.ijse.hotBurger.dao.DAOFactory;
 import lk.ijse.hotBurger.dao.custom.ItemDAO;
-import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
 import lk.ijse.hotBurger.dto.ItemDto;
 
 import java.sql.SQLException;

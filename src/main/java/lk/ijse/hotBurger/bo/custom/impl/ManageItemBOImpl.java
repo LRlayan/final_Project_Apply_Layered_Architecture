@@ -27,18 +27,6 @@ public class ManageItemBOImpl implements ManageItemBO {
     }
 
     @Override
-    public ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException {
-
-        List<Item> allItemCategoryVise = itemDAO.getAll();
-        ArrayList<ItemDto> itemDto = new ArrayList<>();
-
-        for (Item items : allItemCategoryVise) {
-            itemDto.add(new ItemDto(items.getId(),items.getItemCode(),items.getName(),items.getUnitPrice(),items.getUnitCost(),items.getCategoryId(),null));
-        }
-        return itemDto;
-    }
-
-    @Override
     public boolean updateItem(ItemDto itemDto) throws SQLException {
       return itemDAO.update(new Item(itemDto.getId(),itemDto.getItemCode(),itemDto.getName(),itemDto.getUnitPrice(),itemDto.getUnitCost(),itemDto.getCategoryId(),null));
     }

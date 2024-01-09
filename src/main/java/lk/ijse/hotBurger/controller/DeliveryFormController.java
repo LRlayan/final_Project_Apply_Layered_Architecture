@@ -3,30 +3,18 @@ package lk.ijse.hotBurger.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import lk.ijse.hotBurger.Entity.Customer;
-import lk.ijse.hotBurger.Entity.DeliveryDetail;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
-import lk.ijse.hotBurger.bo.custom.impl.CustomerDetailBOImpl;
-import lk.ijse.hotBurger.dao.custom.CustomerDAO;
-import lk.ijse.hotBurger.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.hotBurger.bo.custom.DeliveryBO;
 import lk.ijse.hotBurger.dto.CustomerDto;
 import lk.ijse.hotBurger.dto.DeliveryDto;
-import lk.ijse.hotBurger.dto.tm.CustomerTm;
-import lk.ijse.hotBurger.model.CustomerModel;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DeliveryFormController {
 
@@ -63,7 +51,6 @@ public class DeliveryFormController {
     @FXML
     private JFXTextArea txtAdditionalAddress;
 
-
     @FXML
     private JFXButton closeButton;
 
@@ -71,11 +58,11 @@ public class DeliveryFormController {
     }
 
     DuplicateMethodController duplicate = new DuplicateMethodController();
-    CustomerDetailBO customerDetailBO = (CustomerDetailBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.CUSTOMER_DETAIL);
+    DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.DELIVERY);
 
     public static CustomerDto customerDto = new CustomerDto();
     public static DeliveryDto deliveryDto = new DeliveryDto();
-    private List<CustomerDto> customerDtoList = customerDetailBO.getAll();
+    private List<CustomerDto> customerDtoList = deliveryBO.customerGetAll();
     private Set<String> _customerDtoLis = new HashSet<>(); //search
 
     public void initialize() throws IOException {

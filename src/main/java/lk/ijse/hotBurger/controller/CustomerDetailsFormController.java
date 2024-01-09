@@ -8,14 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.CustomerDetailBO;
 import lk.ijse.hotBurger.bo.custom.impl.CustomerDetailBOImpl;
-import lk.ijse.hotBurger.dao.custom.CustomerDAO;
-import lk.ijse.hotBurger.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.hotBurger.dto.CustomerDto;
 import lk.ijse.hotBurger.dto.tm.CustomerTm;
-import lk.ijse.hotBurger.model.CustomerModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -54,7 +50,7 @@ public class CustomerDetailsFormController implements Initializable {
 
         try{
             //List<CustomerDto> customerDto = customerModel.getAllCustomers();
-            List<CustomerDto> customerDto = customerDetailBO.getAll();
+            List<CustomerDto> customerDto = customerDetailBO.getAllCustomer();
             for (CustomerDto dto : customerDto) {
                 obList.add(new CustomerTm(
                         dto.getId(),

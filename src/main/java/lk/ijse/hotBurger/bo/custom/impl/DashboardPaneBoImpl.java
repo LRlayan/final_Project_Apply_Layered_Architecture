@@ -16,4 +16,14 @@ public class DashboardPaneBoImpl implements DashboardPaneBO {
         Order totalSalesAmount = orderDAO.totalSalesAmount();
         return new OrderDto(totalSalesAmount.getTotal());
     }
+
+    @Override
+    public int totalSales() throws SQLException {
+        return orderDAO.totalSales();
+    }
+
+    @Override
+    public Order profit() {
+        return null;
+    }
 }

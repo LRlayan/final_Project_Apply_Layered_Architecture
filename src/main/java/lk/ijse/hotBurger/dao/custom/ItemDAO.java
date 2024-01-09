@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ItemDAO extends CrudDAO<Item> {
-  //  boolean addNewItem(Item newItemDto) throws SQLException;
-   ArrayList<Item> loadAllItemCategoryVise(int catID) throws SQLException;
+     ArrayList<Item> loadAllItemCategoryVise(int catID) throws SQLException;
 
 }

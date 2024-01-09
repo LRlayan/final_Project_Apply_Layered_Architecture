@@ -1,6 +1,5 @@
 package lk.ijse.hotBurger.controller;
 
-import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,21 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.hotBurger.AppInitializer;
-import lk.ijse.hotBurger.Entity.Item;
-import lk.ijse.hotBurger.Entity.OrderDetail;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.ManageItemBO;
-import lk.ijse.hotBurger.bo.custom.impl.ManageItemBOImpl;
-import lk.ijse.hotBurger.dao.custom.ItemDAO;
-import lk.ijse.hotBurger.dao.custom.impl.ItemDAOImpl;
-import lk.ijse.hotBurger.dto.GridPaneItemDto;
+import lk.ijse.hotBurger.bo.custom.GridPaneItemBO;
 import lk.ijse.hotBurger.dto.ItemDto;
 import lk.ijse.hotBurger.dto.OrderDetailsDto;
-import lk.ijse.hotBurger.dto.tm.CustomerTm;
-import lk.ijse.hotBurger.dto.tm.ItemTm;
-import lk.ijse.hotBurger.model.CustomerModel;
-import lk.ijse.hotBurger.model.ItemModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +23,6 @@ import static java.lang.Integer.parseInt;
 
 public class GridPaneItemController implements Initializable {
     public static AnchorPane anchorPane;
-    public static int x;
-
-    public static int categoryId;
 
     @FXML
     private ImageView img;
@@ -48,9 +33,11 @@ public class GridPaneItemController implements Initializable {
     @FXML
     private Label priceLabel;
 
-    List<ItemDto> itemDto = new ArrayList<>();
+    public static int x;
 
-    ManageItemBO manageItemBO = (ManageItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.MANAGE_ITEM);
+    public static int categoryId;
+    List<ItemDto> itemDto = new ArrayList<>();
+    GridPaneItemBO gridPaneItemBO = (GridPaneItemBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.GRID_PANE_ITEM);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,6 +49,7 @@ public class GridPaneItemController implements Initializable {
     }
 
     public void setImgAndNameAndPrice() throws SQLException {
+        itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
         itemDto = ItemModel.loadAllItemCategoryVise(categoryId);
 
                 Image image = new Image(itemDto.get(x).getImage());

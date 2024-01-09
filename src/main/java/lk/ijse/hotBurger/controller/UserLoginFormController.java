@@ -8,15 +8,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.UserBO;
-import lk.ijse.hotBurger.bo.custom.impl.UserBoImpl;
-import lk.ijse.hotBurger.dao.custom.UserDAO;
-import lk.ijse.hotBurger.dao.custom.impl.UserDAOImpl;
 import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.UserModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 

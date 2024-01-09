@@ -19,14 +19,9 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
 
     @Override
     public ArrayList<ItemCategory> getAll() throws SQLException {
-//        Connection connection = DbConnection.getInstance().getConnection();
-//
-//        String sql = "SELECT * FROM itemCategory";
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//
+
         ArrayList<ItemCategory> itemCategoryList = new  ArrayList<>();
-//
-//        ResultSet resultSet = preparedStatement.executeQuery();
+
         ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM itemCategory");
         while (resultSet.next()){
             itemCategoryList.add(new ItemCategory(
@@ -35,7 +30,6 @@ public class ItemCategoryDAOImpl implements ItemCategoryDAO {
                   resultSet.getString(3)
             ));
         }
-
         return itemCategoryList;
     }
 

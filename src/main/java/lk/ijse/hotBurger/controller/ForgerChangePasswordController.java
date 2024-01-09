@@ -9,13 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hotBurger.bo.BOFactory;
-import lk.ijse.hotBurger.bo.custom.AccountInfoBO;
-import lk.ijse.hotBurger.bo.custom.UserBO;
-import lk.ijse.hotBurger.dao.DAOFactory;
-import lk.ijse.hotBurger.dao.custom.UserDAO;
-import lk.ijse.hotBurger.dao.custom.impl.UserDAOImpl;
+import lk.ijse.hotBurger.bo.custom.ForgetChangePasswordBO;
 import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.UserModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,14 +33,13 @@ public class ForgerChangePasswordController {
     public static int userId;
 
     DuplicateMethodController navigate = new DuplicateMethodController();
-
-    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
+    ForgetChangePasswordBO forgetChangePasswordBO = (ForgetChangePasswordBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.FORGET_CHANGE_PASSWORD);
 
     ArrayList<UserDto> allUsers;
 
     {
         try {
-            allUsers = UserModel.getAllUsers();
+            allUsers = forgetChangePasswordBO.getAllUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +55,7 @@ public class ForgerChangePasswordController {
             userId = allUsers.get(i).getId();
         }
         try {
-            boolean isUpdatePassword = userBO.updatePassword(confirmPassword , userId);
+            boolean isUpdatePassword = forgetChangePasswordBO.updatePassword(confirmPassword , userId);
             if (isUpdatePassword){
                 new Alert(Alert.AlertType.CONFIRMATION,"Update Password Successfully!").show();
                 clearTextField(txtNewPassword,txtConfirmPassword);

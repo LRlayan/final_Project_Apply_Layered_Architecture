@@ -13,15 +13,9 @@ import java.util.List;
 
 public class CustomerDetailBOImpl implements CustomerDetailBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
-    @Override
-    public boolean saveCustomer(CustomerDto customerDto) throws SQLException {
-       return customerDAO.save(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),customerDto.getMobile(),customerDto.getAddress()));
-       //return new CustomerDto(customer.getId(),customer.getFName(),customer.getLName(),customer.getAddress(),customer.getMobile());
-        //return false;
-    }
 
     @Override
-    public ArrayList<CustomerDto> getAll() throws SQLException {
+    public ArrayList<CustomerDto> getAllCustomer() throws SQLException {
         List<Customer> getAllCustomer = customerDAO.getAll();
         ArrayList<CustomerDto> customerDto = new ArrayList<>();
 
@@ -32,17 +26,12 @@ public class CustomerDetailBOImpl implements CustomerDetailBO {
     }
 
     @Override
-    public boolean dineAndPickUpCustomerSave(CustomerDto customerDto) throws SQLException {
-        return customerDAO.save(new Customer(customerDto.getId(),customerDto.getFName(),customerDto.getLName(),customerDto.getAddress(),customerDto.getMobile()));
-    }
-
-    @Override
-    public boolean update(CustomerDto dto) throws SQLException {
+    public boolean updateCustomer(CustomerDto dto) throws SQLException {
         return false;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException {
+    public boolean deleteCustomer(String id) throws SQLException {
         return false;
     }
 }

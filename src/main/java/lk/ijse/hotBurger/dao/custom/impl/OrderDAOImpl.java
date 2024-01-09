@@ -18,21 +18,8 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public boolean save(Order entity) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
-       // String sql = "INSERT INTO orders VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders VALUES(?,?,?,?,?,?,?,?)" , PreparedStatement.RETURN_GENERATED_KEYS);
 
-//        preparedStatement.setInt(1, 0);
-//        preparedStatement.setString(2, entity.getType());
-//        preparedStatement.setString(3, entity.getDate());
-//        preparedStatement.setDouble(4, entity.getSubTotal());
-//        preparedStatement.setDouble(5, entity.getDiscount());
-//        preparedStatement.setDouble(6, entity.getDeliveryCharge());
-//        preparedStatement.setDouble(7, entity.getTotal());
-//        preparedStatement.setInt(8, entity.getCustomerId());
-//
-//       // preparedStatement.executeUpdate();
-//
-//        int affectedRow = preparedStatement.executeUpdate();
         boolean affectedRow = SQLUtil.executeQueryWithGeneratedKey(preparedStatement,entity.getId(),entity.getType(),entity.getDate(),entity.getSubTotal(),entity.getDiscount(),entity.getDeliveryCharge(),entity.getTotal(),entity.getCustomerId());
         if (affectedRow){
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -47,20 +34,14 @@ public class OrderDAOImpl implements OrderDAO {
                 CartTableController.order.setDeliveryCharge(entity.getDeliveryCharge());
                 CartTableController.order.setTotal(entity.getTotal());
                 CartTableController.order.setCustomerId(entity.getCustomerId());
-                //return entity; <- return type is not boolean
             }
         }
-        //return null; <- return type is not boolean
         return false;
     }
 
     @Override
     public ArrayList<Order> getAll() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
-//        Connection connection = DbConnection.getInstance().getConnection();
-//        String sql = "SELECT * FROM orders";
-//
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = SQLUtil.executeQuery("SELECT * FROM orders");
         while (resultSet.next()){
             Order order = new Order(
@@ -80,10 +61,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Order totalSalesAmount() throws SQLException {
-//        Connection connection = DbConnection.getInstance().getConnection();
-//        String sql = "SELECT SUM(total) FROM orders";
-//
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = SQLUtil.executeQuery("SELECT SUM(total) FROM orders");
         Order order = new Order();
         while (resultSet.next()){
@@ -95,12 +72,8 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public int totalSales() throws SQLException {
         int totalSales = 0;
-//        Connection connection = DbConnection.getInstance().getConnection();
-//        String sql = "SELECT COUNT(id) FROM orders";
-//        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         ResultSet resultSet = SQLUtil.executeQuery("SELECT COUNT(id) FROM orders");
-       // OrderDto orderDto = new OrderDto();
         while (resultSet.next()){
             totalSales = resultSet.getInt(1);
         }

@@ -8,9 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.AccountInfoBO;
-import lk.ijse.hotBurger.bo.custom.UserBO;
 import lk.ijse.hotBurger.dto.UserDto;
-import lk.ijse.hotBurger.model.UserModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,14 +46,13 @@ public class AccountInfoFormController {
     private Label lblConfirmPassword;
 
     DuplicateMethodController checkPassword = new DuplicateMethodController();
-    UserBO userBO = (UserBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.USER);
     AccountInfoBO accountInfoBO = (AccountInfoBO) BOFactory.getBoFactory().BOTypes(BOFactory.BOTypes.ACCOUNT_INFO);
 
     ArrayList<UserDto> getAllUsers;
 
     {
         try {
-            getAllUsers = userBO.getAll();
+            getAllUsers = accountInfoBO.getAllUsers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -143,7 +140,7 @@ public class AccountInfoFormController {
         setEditableTextField(txtConfirmPassword , false);
         String password = txtPassword.getText();
 
-        ArrayList<UserDto> userDtoList = UserModel.getAllUsers();
+        ArrayList<UserDto> userDtoList = accountInfoBO.getAllUsers();
 
         for (int i = 0; i < userDtoList.size(); i++){
             if (password.equals(userDtoList.get(i).getPassword())){

@@ -13,7 +13,7 @@ public class DineInBOImpl implements DineInBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
     @Override
-    public CustomerDto dineAndPickUpCustomerSave(CustomerDto dto) throws SQLException {
+    public CustomerDto dineCustomerSave(CustomerDto dto) throws SQLException {
 
        Customer customer = customerDAO.dineAndPickUpCustomerSave(new Customer(dto.getId(),dto.getFName(),dto.getLName(),dto.getAddress(),dto.getMobile()));
        return new CustomerDto(customer.getId(),customer.getFName(),customer.getLName(),customer.getAddress(),customer.getMobile());

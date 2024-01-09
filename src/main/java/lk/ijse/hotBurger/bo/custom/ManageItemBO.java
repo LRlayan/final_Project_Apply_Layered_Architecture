@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ManageItemBO extends SuperBO {
     ArrayList<ItemDto> getAllItem() throws SQLException;
-    ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException;
+   // ArrayList<ItemDto> loadAllItemCategoryVise(int catID) throws SQLException;
     boolean updateItem(ItemDto itemDto) throws SQLException;
     boolean deleteItem(String itemCode) throws SQLException;
 }

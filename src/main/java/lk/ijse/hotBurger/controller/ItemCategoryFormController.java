@@ -10,12 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.ItemCategoryBO;
-import lk.ijse.hotBurger.bo.custom.impl.ItemCategoryBOImpl;
-import lk.ijse.hotBurger.dao.custom.ItemCategoryDAO;
-import lk.ijse.hotBurger.dao.custom.impl.ItemCategoryDAOImpl;
 import lk.ijse.hotBurger.dto.ItemCategoryDto;
 import lk.ijse.hotBurger.dto.tm.ItemCategoryTm;
-import lk.ijse.hotBurger.model.ItemCategoryModel;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.TextField;
 

@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import lk.ijse.hotBurger.bo.BOFactory;
 import lk.ijse.hotBurger.bo.custom.AddNewItemBO;
 import lk.ijse.hotBurger.dto.AddNewItemDto;
-import lk.ijse.hotBurger.model.AddNewItemModel;
-import lk.ijse.hotBurger.model.ItemModel;
 
 import java.sql.SQLException;
 import java.util.regex.Pattern;

@@ -8,5 +8,4 @@ import java.util.ArrayList;
 
 public interface UpdateItemPopUpWindowBO extends SuperBO {
     boolean updateItem(ItemDto itemDto) throws SQLException;
-    ArrayList<ItemDto> getAllItem() throws SQLException;
 }
